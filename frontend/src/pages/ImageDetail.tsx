@@ -34,7 +34,7 @@ export default function ImageDetail() {
         <div className="text-center">
           <AlertCircle className="h-8 w-8 text-red-500 mx-auto mb-4" />
           <p className="text-gray-600 mb-4">Image not found or failed to load.</p>
-          <Link to="/gallery" className="btn-primary">
+          <Link to="/gallery" className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg">
             Back to Gallery
           </Link>
         </div>
@@ -76,7 +76,7 @@ export default function ImageDetail() {
               href={image.imageUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-secondary inline-flex items-center space-x-2"
+              className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 px-6 rounded-lg transition-colors duration-200 inline-flex items-center space-x-2"
             >
               <ExternalLink className="h-4 w-4" />
               <span>View Original</span>
@@ -119,13 +119,13 @@ export default function ImageDetail() {
             <div className="flex flex-col sm:flex-row gap-3">
               <Link
                 to="/upload"
-                className="btn-primary flex-1 text-center"
+                className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg flex-1 text-center"
               >
                 Add Another Image
               </Link>
               <Link
                 to="/gallery"
-                className="btn-secondary flex-1 text-center"
+                className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 px-6 rounded-lg transition-colors duration-200 flex-1 text-center"
               >
                 Browse Gallery
               </Link>

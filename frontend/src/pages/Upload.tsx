@@ -49,7 +49,7 @@ export default function Upload() {
         </p>
       </div>
 
-      <div className="card">
+      <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
           {/* Title Field */}
           <div>
@@ -126,7 +126,7 @@ export default function Upload() {
             <button
               type="button"
               onClick={() => navigate('/gallery')}
-              className="btn-secondary"
+              className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 px-6 rounded-lg transition-colors duration-200"
             >
               Cancel
             </button>
@@ -134,7 +134,7 @@ export default function Upload() {
             <button
               type="submit"
               disabled={mutation.isPending || !formData.title || !formData.imageUrl}
-              className={`btn-primary inline-flex items-center space-x-2 ${
+              className={`bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg inline-flex items-center space-x-2 ${
                 mutation.isPending ? 'opacity-75 cursor-not-allowed' : ''
               }`}
             >

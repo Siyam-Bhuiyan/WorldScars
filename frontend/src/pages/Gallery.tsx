@@ -89,7 +89,7 @@ export default function Gallery() {
           </div>
           <h3 className="text-lg font-medium text-gray-900 mb-2">No images yet</h3>
           <p className="text-gray-600 mb-6">Start building the collection by uploading the first influential image.</p>
-          <Link to="/upload" className="btn-primary">
+          <Link to="/upload" className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg">
             Upload First Image
           </Link>
         </div>
