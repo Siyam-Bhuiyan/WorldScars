@@ -68,7 +68,7 @@ const Upload = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-stone-100 text-gray-800">
+    <div className="flex flex-col min-h-screen worldscars-bg text-gray-800">
       {/* Header */}
       <header className="sticky top-0 z-20 bg-gray-50/95 backdrop-blur-lg border-b border-gray-200/40">
         <div className="w-full px-4 sm:px-6 lg:px-8">

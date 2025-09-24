@@ -33,14 +33,14 @@ const Gallery = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-gray-100 to-stone-100">
+      <div className="min-h-screen flex items-center justify-center worldscars-bg">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-700"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-gray-50 via-gray-100 to-stone-100">
+    <div className="min-h-screen w-full worldscars-bg">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-20 bg-gray-50/95 backdrop-blur-lg border-b border-gray-200/40">
         <div className="w-full px-4 sm:px-6 lg:px-8">

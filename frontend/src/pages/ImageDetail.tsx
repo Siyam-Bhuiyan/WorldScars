@@ -50,7 +50,7 @@ const ImageDetail = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-gray-100 to-stone-100">
+      <div className="min-h-screen flex items-center justify-center worldscars-bg">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-700"></div>
       </div>
     );
@@ -58,7 +58,7 @@ const ImageDetail = () => {
 
   if (!image) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-gray-100 to-stone-100">
+      <div className="min-h-screen flex items-center justify-center worldscars-bg">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-700 mb-4">Image not found</h2>
           <button
@@ -73,7 +73,7 @@ const ImageDetail = () => {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-stone-100 text-gray-800">
+    <div className="flex flex-col min-h-screen worldscars-bg text-gray-800">
       {/* Header */}
       <header className="sticky top-0 z-10 bg-gray-50/95 backdrop-blur-lg border-b border-gray-200/40">
         <div className="w-full px-4 sm:px-6 lg:px-8">
