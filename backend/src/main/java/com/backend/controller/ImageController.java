@@ -13,15 +13,21 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/images")
-@CrossOrigin(origins = "*") 
-@RequiredArgsConstructor    
+@CrossOrigin(origins = "http://localhost:5173")
+@RequiredArgsConstructor
 public class ImageController {
 
-    private final ImageService imageService; 
+    private final ImageService imageService;
     private final CloudinaryService cloudinaryService;
 
+    // Test endpoint
+    @GetMapping("/test")
+    public ResponseEntity<String> test() {
+        return ResponseEntity.ok("Backend is working!");
+    }
+
     @PostMapping("/upload")
-    public ResponseEntity<Image> uploadImage(
+    public ResponseEntity<?> uploadImage(
             @RequestParam("file") MultipartFile file,
             @RequestParam("title") String title,
             @RequestParam("description") String description,
@@ -31,25 +37,21 @@ public class ImageController {
             // Upload to Cloudinary
             String imageUrl = cloudinaryService.uploadImage(file);
             
-            // Save to database
-            Image image = Image.builder()
-                    .title(title)
-                    .description(description)
-                    .imageUrl(imageUrl)
-                    .location(location)
-                    .build();
+            // Create and save image
+            Image image = new Image();
+            image.setTitle(title);
+            image.setDescription(description != null ? description : "");
+            image.setImageUrl(imageUrl);
+            image.setLocation(location != null ? location : "");
             
             Image savedImage = imageService.save(image);
             return ResponseEntity.ok(savedImage);
             
-        } catch (IOException e) {
-            return ResponseEntity.badRequest().build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500)
+                .body("Upload failed: " + e.getMessage());
         }
-    }
-
-    @PostMapping
-    public Image uploadImageByUrl(@RequestBody Image image) {
-        return imageService.save(image);
     }
 
     @GetMapping

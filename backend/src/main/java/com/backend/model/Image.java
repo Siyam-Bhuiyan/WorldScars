@@ -6,29 +6,21 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "images")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String title;
-    
-    @Column(length = 1000)
     private String description;
-    
-    @Column(nullable = false)
     private String imageUrl;
-    
-    private String cloudinaryPublicId;
-    
     private String location;
     
-    @Column(nullable = false)
+    @Column(name = "uploaded_at")
     private LocalDateTime uploadedAt;
     
     @PrePersist
