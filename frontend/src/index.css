@@ -26,6 +26,24 @@
 }
 
 @layer utilities {
+  @keyframes fade-in-8 {
+    0%,
+    100% {
+      opacity: 0;
+      transform: scale(1.05);
+    }
+    12.5%,
+    87.5% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animate-fade-in-8 {
+    animation: fade-in-8 40s infinite ease-in-out;
+  }
+
+  /* Keep original animation for backward compatibility */
   @keyframes fade-in {
     0%,
     100% {
@@ -51,5 +69,22 @@
       height: 100dvh; /* Dynamic viewport height for mobile */
       overflow: hidden;
     }
+  }
+
+  /* Gallery card enhancements */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 }

@@ -4,6 +4,7 @@ import image1 from '../assets/big-dust-cloud-marrakesh-city-after-earthquake.jpg
 import image2 from '../assets/photorealistic-refugee-camp.jpg';
 import image3 from '../assets/photorealistic-kid-refugee-camp.jpg';
 
+
 const Home = () => {
   const navigate = useNavigate();
 
