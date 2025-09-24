@@ -33,16 +33,16 @@ const Gallery = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-stone-50 via-gray-50 to-stone-100">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-stone-800"></div>
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-stone-50 to-gray-100">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-700"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-stone-50 via-gray-50 to-stone-100">
+    <div className="min-h-screen w-full bg-gradient-to-br from-gray-50 via-stone-50 to-gray-100">
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-20 bg-stone-50/90 backdrop-blur-lg border-b border-stone-200/30">
+      <header className="fixed top-0 left-0 right-0 z-20 bg-gray-50/95 backdrop-blur-lg border-b border-gray-200/40">
         <div className="w-full px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-14 sm:h-16 lg:h-18">
             <div className="flex items-center gap-2 sm:gap-3">
@@ -88,57 +88,57 @@ const Gallery = () => {
 
       {/* Main Content */}
       <main className="w-full px-6 py-8 pt-24 sm:px-8 lg:px-12 xl:px-16 2xl:px-20">
-        <div className="mb-20 text-center">
-          <h1 className="text-5xl font-bold tracking-tight text-stone-800 sm:text-6xl lg:text-7xl mb-8">
+        <div className="mb-16 text-center">
+          <h1 className="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl lg:text-6xl mb-6">
             Historical Images
           </h1>
-          <p className="max-w-4xl mx-auto text-xl text-stone-600 leading-relaxed">
+          <p className="max-w-3xl mx-auto text-lg text-gray-600 leading-relaxed">
             Discover powerful moments that shaped our world through this curated collection of historical photographs and artworks.
           </p>
         </div>
 
         {images.length === 0 ? (
-          <div className="text-center py-24">
+          <div className="text-center py-20">
             <div className="mb-8">
-              <div className="w-36 h-36 mx-auto bg-stone-100 rounded-3xl flex items-center justify-center mb-8 shadow-inner">
-                <svg className="w-18 h-18 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-32 h-32 mx-auto bg-gray-100 rounded-2xl flex items-center justify-center mb-6 shadow-inner">
+                <svg className="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
               </div>
-              <h3 className="text-3xl font-bold text-stone-700 mb-4">No images yet</h3>
-              <p className="text-xl text-stone-500 mb-10 max-w-lg mx-auto">Start building your collection of powerful historical moments and artworks</p>
+              <h3 className="text-2xl font-bold text-gray-700 mb-3">No images yet</h3>
+              <p className="text-lg text-gray-500 mb-8 max-w-md mx-auto">Start building your collection of powerful historical moments and artworks</p>
               <button
                 onClick={() => navigate('/upload')}
-                className="px-10 py-5 bg-stone-800 hover:bg-stone-700 text-stone-50 text-lg font-semibold rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1"
+                className="px-8 py-4 bg-gray-800 hover:bg-gray-700 text-gray-50 text-lg font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1"
               >
                 Upload First Image
               </button>
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
             {images.map((image) => (
               <Link
                 key={image.id}
                 to={`/image/${image.id}`}
                 className="group cursor-pointer"
               >
-                <div className="group relative overflow-hidden rounded-3xl bg-stone-50 shadow-xl transition-all duration-500 hover:shadow-2xl hover:-translate-y-3 border border-stone-200/60 hover:border-stone-300/80">
+                <div className="group relative overflow-hidden rounded-2xl bg-stone-50 shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border border-stone-200/50 hover:border-stone-300/70">
                   {/* Square Image Container */}
                   <div className="aspect-square overflow-hidden bg-stone-100">
                     <img 
                       alt={image.title} 
-                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" 
+                      className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" 
                       src={image.imageUrl}
                       loading="lazy"
                     />
                     {/* Overlay gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-stone-900/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-stone-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
                   
                   {/* Card Content */}
-                  <div className="p-8">
-                    <h3 className="text-xl font-bold text-stone-800 mb-3 line-clamp-2 group-hover:text-stone-600 transition-colors leading-tight">
+                  <div className="p-5">
+                    <h3 className="text-lg font-semibold text-stone-800 mb-2 line-clamp-2 group-hover:text-stone-600 transition-colors">
                       {image.title}
                     </h3>
                   </div>
