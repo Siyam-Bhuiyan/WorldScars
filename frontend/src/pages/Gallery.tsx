@@ -44,14 +44,14 @@ const Gallery = () => {
       {/* Header */}
       <header className="sticky top-0 z-10 w-full border-b border-[#1791cf]/20 bg-[#f6f7f8]/80 backdrop-blur-sm">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
-          <a className="flex items-center gap-2" href="#">
+          <button onClick={() => navigate('/')} className="flex items-center gap-2">
             <svg className="text-[#1791cf]" fill="none" height="24" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" width="24">
               <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
               <path d="M2 17l10 5 10-5"></path>
               <path d="M2 12l10 5 10-5"></path>
             </svg>
             <span className="text-xl font-bold">WorldScars</span>
-          </a>
+          </button>
           <nav className="hidden items-center gap-6 md:flex">
             <a className="font-medium hover:text-[#1791cf]" href="#">Home</a>
             <a className="font-medium hover:text-[#1791cf]" href="#">Collections</a>

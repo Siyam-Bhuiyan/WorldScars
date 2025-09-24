@@ -10,7 +10,46 @@
     --background-dark: #111c21;
   }
 
+  html,
   body {
     font-family: "Newsreader", serif;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  #root {
+    height: 100%;
+    overflow: hidden;
+  }
+}
+
+@layer utilities {
+  @keyframes fade-in {
+    0%,
+    100% {
+      opacity: 0;
+      transform: scale(1.05);
+    }
+    10%,
+    90% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 15s infinite ease-in-out;
+  }
+
+  /* Ensure full viewport coverage on mobile */
+  @media (max-width: 768px) {
+    html,
+    body {
+      height: 100vh;
+      height: 100dvh; /* Dynamic viewport height for mobile */
+      overflow: hidden;
+    }
   }
 }

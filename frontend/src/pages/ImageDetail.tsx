@@ -62,7 +62,7 @@ const ImageDetail = () => {
         <div className="text-center">
           <h2 className="text-2xl font-bold text-[#111c21]/70 mb-4">Image not found</h2>
           <button
-            onClick={() => navigate('/')}
+            onClick={() => navigate('/gallery')}
             className="px-6 py-3 bg-[#1791cf] hover:bg-[#1791cf]/90 text-white rounded-lg font-medium transition-colors"
           >
             Back to Gallery
@@ -118,7 +118,7 @@ const ImageDetail = () => {
           {/* Breadcrumbs */}
           <div className="text-sm font-medium text-[#111c21]/60 mb-8">
             <button 
-              onClick={() => navigate('/')}
+              onClick={() => navigate('/gallery')}
               className="hover:text-[#1791cf] transition-colors"
             >
               Collections

@@ -58,7 +58,7 @@ const Upload = () => {
       });
 
       if (response.ok) {
-        navigate('/');
+        navigate('/gallery');
       }
     } catch (error) {
       console.error('Upload error:', error);
@@ -86,7 +86,7 @@ const Upload = () => {
                 onClick={() => navigate('/')}
                 className="text-sm font-medium hover:text-[#1791cf] transition-colors"
               >
-                Dashboard
+                Home
               </button>
               <a className="text-sm font-medium hover:text-[#1791cf] transition-colors" href="#">Images</a>
               <a className="text-sm font-bold text-[#1791cf]" href="#">Upload</a>
