@@ -1,8 +1,16 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: "Inter", system-ui, sans-serif;
+@layer base {
+  :root {
+    --primary: #1791cf;
+    --background-light: #f6f7f8;
+    --background-dark: #111c21;
+  }
+
+  body {
+    font-family: "Newsreader", serif;
+  }
 }
