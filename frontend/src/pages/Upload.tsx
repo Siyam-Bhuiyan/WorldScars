@@ -68,33 +68,49 @@ const Upload = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#f6f7f8] text-[#111c21]">
+    <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-stone-100 text-gray-800">
       {/* Header */}
-      <header className="border-b border-slate-200">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center gap-4">
-              <div className="text-[#1791cf]">
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 48 48">
-                  <path d="M6 6H42L36 24L42 42H6L12 24L6 6Z" fill="currentColor"></path>
+      <header className="sticky top-0 z-20 bg-gray-50/95 backdrop-blur-lg border-b border-gray-200/40">
+        <div className="w-full px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-14 sm:h-16 lg:h-18">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="text-stone-600">
+                <svg className="w-6 h-6 sm:w-7 sm:h-7" fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z"></path>
                 </svg>
               </div>
-              <h1 className="text-xl font-bold">WorldScars</h1>
+              <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-stone-800">WorldScars</h2>
             </div>
-            <nav className="hidden md:flex items-center gap-8">
+            <nav className="hidden md:flex items-center gap-6 lg:gap-10">
               <button 
                 onClick={() => navigate('/')}
-                className="text-sm font-medium hover:text-[#1791cf] transition-colors"
+                className="text-xs sm:text-sm font-medium text-stone-600 hover:text-stone-800 transition-colors"
               >
                 Home
               </button>
-              <a className="text-sm font-medium hover:text-[#1791cf] transition-colors" href="#">Images</a>
-              <a className="text-sm font-bold text-[#1791cf]" href="#">Upload</a>
-              <a className="text-sm font-medium hover:text-[#1791cf] transition-colors" href="#">Settings</a>
+              <button 
+                onClick={() => navigate('/gallery')}
+                className="text-xs sm:text-sm font-medium text-stone-600 hover:text-stone-800 transition-colors"
+              >
+                Gallery
+              </button>
+              <button 
+                onClick={() => navigate('/upload')}
+                className="text-xs sm:text-sm font-medium text-stone-800 font-semibold"
+              >
+                Upload
+              </button>
             </nav>
-            <div className="flex items-center gap-4">
-              <button className="md:hidden p-2 rounded-lg hover:bg-slate-100">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="flex items-center gap-1 sm:gap-2">
+              <button className="rounded-full p-1.5 sm:p-2 text-stone-600 hover:text-stone-800 hover:bg-stone-200/50 transition-colors">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" x2="16.65" y1="21" y2="16.65"></line>
+                </svg>
+              </button>
+              {/* Mobile menu button */}
+              <button className="md:hidden rounded-full p-1.5 sm:p-2 text-stone-600 hover:text-stone-800 hover:bg-stone-200/50 transition-colors">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               </button>
@@ -104,8 +120,8 @@ const Upload = () => {
       </header>
 
       {/* Main Content */}
-      <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-        <div className="max-w-3xl mx-auto">
+      <main className="flex-grow w-full px-6 py-8 sm:px-8 lg:px-12 xl:px-16 2xl:px-20">
+        <div className="max-w-4xl mx-auto">
           <div className="mb-8">
             <h2 className="text-4xl font-bold tracking-tight">Upload New Historical Image</h2>
             <p className="mt-2 text-slate-500">Fill in the details below to add a new image to the archive.</p>

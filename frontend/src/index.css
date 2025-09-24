@@ -5,9 +5,12 @@
 
 @layer base {
   :root {
-    --primary: #1791cf;
-    --background-light: #f6f7f8;
-    --background-dark: #111c21;
+    --primary: #6b7280;
+    --background-light: #f9fafb;
+    --background-medium: #f3f4f6;
+    --background-dark: #374151;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
   }
 
   html,
@@ -16,10 +19,12 @@
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 50%, #f9fafb 100%);
   }
 
   #root {
     min-height: 100vh;
+    width: 100%;
   }
 }
 
@@ -110,5 +115,48 @@
 
   .gallery-card:hover .gallery-image {
     transform: scale(1.1);
+  }
+
+  /* Consistent page layout utilities */
+  .page-container {
+    min-height: 100vh;
+    width: 100%;
+    background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 50%, #f9fafb 100%);
+  }
+
+  .content-wrapper {
+    width: 100%;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  @media (min-width: 640px) {
+    .content-wrapper {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .content-wrapper {
+      padding-left: 3rem;
+      padding-right: 3rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .content-wrapper {
+      padding-left: 4rem;
+      padding-right: 4rem;
+    }
+  }
+
+  @media (min-width: 1536px) {
+    .content-wrapper {
+      padding-left: 5rem;
+      padding-right: 5rem;
+    }
   }
 }

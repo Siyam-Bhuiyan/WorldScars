@@ -10,6 +10,55 @@ const Home = () => {
 
   return (
     <div className="relative h-screen w-full overflow-hidden">
+      {/* Header */}
+      <header className="fixed top-0 left-0 right-0 z-30 bg-gray-900/20 backdrop-blur-sm border-b border-white/10">
+        <div className="w-full px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-14 sm:h-16 lg:h-18">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="text-white">
+                <svg className="w-6 h-6 sm:w-7 sm:h-7" fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z"></path>
+                </svg>
+              </div>
+              <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white">WorldScars</h2>
+            </div>
+            <nav className="hidden md:flex items-center gap-6 lg:gap-10">
+              <button 
+                onClick={() => navigate('/')}
+                className="text-xs sm:text-sm font-medium text-white/90 hover:text-white transition-colors"
+              >
+                Home
+              </button>
+              <button 
+                onClick={() => navigate('/gallery')}
+                className="text-xs sm:text-sm font-medium text-white/90 hover:text-white transition-colors"
+              >
+                Gallery
+              </button>
+              <button 
+                onClick={() => navigate('/upload')}
+                className="text-xs sm:text-sm font-medium text-white/90 hover:text-white transition-colors"
+              >
+                Upload
+              </button>
+            </nav>
+            <div className="flex items-center gap-1 sm:gap-2">
+              <button className="rounded-full p-1.5 sm:p-2 text-white/80 hover:text-white hover:bg-white/10 transition-colors">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" x2="16.65" y1="21" y2="16.65"></line>
+                </svg>
+              </button>
+              {/* Mobile menu button */}
+              <button className="md:hidden rounded-full p-1.5 sm:p-2 text-white/80 hover:text-white hover:bg-white/10 transition-colors">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
 
       {/* Main Hero Section */}
       <main className="absolute inset-0 w-full h-full">

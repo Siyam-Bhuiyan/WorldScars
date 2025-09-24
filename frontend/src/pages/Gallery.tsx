@@ -33,14 +33,14 @@ const Gallery = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-stone-50 to-gray-100">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-gray-100 to-stone-100">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-700"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-gray-50 via-stone-50 to-gray-100">
+    <div className="min-h-screen w-full bg-gradient-to-br from-gray-50 via-gray-100 to-stone-100">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-20 bg-gray-50/95 backdrop-blur-lg border-b border-gray-200/40">
         <div className="w-full px-4 sm:px-6 lg:px-8">
@@ -55,13 +55,23 @@ const Gallery = () => {
             </div>
             <nav className="hidden md:flex items-center gap-6 lg:gap-10">
               <button 
+                onClick={() => navigate('/')}
+                className="text-xs sm:text-sm font-medium text-stone-600 hover:text-stone-800 transition-colors"
+              >
+                Home
+              </button>
+              <button 
                 onClick={() => navigate('/gallery')}
                 className="text-xs sm:text-sm font-medium text-stone-600 hover:text-stone-800 transition-colors"
               >
-                Explore
+                Gallery
               </button>
-              <a className="text-xs sm:text-sm font-medium text-stone-600 hover:text-stone-800 transition-colors" href="#">Collections</a>
-              <a className="text-xs sm:text-sm font-medium text-stone-600 hover:text-stone-800 transition-colors" href="#">About</a>
+              <button 
+                onClick={() => navigate('/upload')}
+                className="text-xs sm:text-sm font-medium text-stone-600 hover:text-stone-800 transition-colors"
+              >
+                Upload
+              </button>
             </nav>
             <div className="flex items-center gap-1 sm:gap-2">
               <button className="rounded-full p-1.5 sm:p-2 text-stone-600 hover:text-stone-800 hover:bg-stone-200/50 transition-colors">
