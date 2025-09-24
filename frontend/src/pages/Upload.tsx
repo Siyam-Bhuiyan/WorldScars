@@ -1,124 +1,122 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function Upload() {
+const Upload = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
+  const [location, setLocation] = useState('');
+  const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
+  const [preview, setPreview] = useState<string | null>(null);
   const navigate = useNavigate();
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+      // Create preview
+      const previewUrl = URL.createObjectURL(selectedFile);
+      setPreview(previewUrl);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!title || !imageUrl) return;
+    if (!file || !title) return;
 
     setLoading(true);
-    
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('location', location);
+
     try {
-      const response = await fetch('http://localhost:8080/api/images', {
+      const response = await fetch('http://localhost:8080/api/images/upload', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          title,
-          description,
-          imageUrl,
-        }),
+        body: formData,
       });
 
       if (response.ok) {
+        alert('Image uploaded successfully!');
+        // Reset form
+        setTitle('');
+        setDescription('');
+        setLocation('');
+        setFile(null);
+        setPreview(null);
         navigate('/gallery');
-      } else {
-        alert('Failed to upload image');
       }
     } catch (error) {
-      console.error('Error:', error);
-      alert('Failed to upload image');
+      alert('Error uploading image');
+    } finally {
+      setLoading(false);
     }
-    
-    setLoading(false);
   };
 
   return (
-    <div className="max-w-2xl mx-auto">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Add New Image</h1>
+    <div className="max-w-2xl mx-auto p-6">
+      <h1 className="text-3xl font-bold text-center mb-8">Upload Historic Image</h1>
       
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Title *
-            </label>
-            <input
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              required
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              placeholder="Image title"
-            />
-          </div>
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div>
+          <label className="block text-sm font-medium mb-2">Select Image</label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            className="w-full p-3 border rounded-lg"
+            required
+          />
+        </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Image URL *
-            </label>
-            <input
-              type="url"
-              value={imageUrl}
-              onChange={(e) => setImageUrl(e.target.value)}
-              required
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              placeholder="https://example.com/image.jpg"
-            />
+        {preview && (
+          <div className="text-center">
+            <img src={preview} alt="Preview" className="max-w-full h-64 object-cover rounded-lg mx-auto" />
           </div>
+        )}
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Description
-            </label>
-            <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              rows={4}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              placeholder="Describe the image..."
-            />
-          </div>
+        <div>
+          <label className="block text-sm font-medium mb-2">Title</label>
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="w-full p-3 border rounded-lg"
+            required
+          />
+        </div>
 
-          {imageUrl && (
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Preview
-              </label>
-              <img
-                src={imageUrl}
-                alt="Preview"
-                className="w-full h-64 object-cover rounded-lg"
-              />
-            </div>
-          )}
+        <div>
+          <label className="block text-sm font-medium mb-2">Description</label>
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            className="w-full p-3 border rounded-lg h-32"
+            rows={4}
+          />
+        </div>
 
-          <div className="flex justify-end space-x-4">
-            <button
-              type="button"
-              onClick={() => navigate('/gallery')}
-              className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-3 rounded-lg font-medium"
-            >
-              Cancel
-            </button>
-            
-            <button
-              type="submit"
-              disabled={loading || !title || !imageUrl}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium disabled:opacity-50"
-            >
-              {loading ? 'Uploading...' : 'Upload Image'}
-            </button>
-          </div>
-        </form>
-      </div>
+        <div>
+          <label className="block text-sm font-medium mb-2">Location (Optional)</label>
+          <input
+            type="text"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            className="w-full p-3 border rounded-lg"
+          />
+        </div>
+
+        <button
+          type="submit"
+          disabled={loading || !file || !title}
+          className="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 disabled:bg-gray-400"
+        >
+          {loading ? 'Uploading...' : 'Upload Image'}
+        </button>
+      </form>
     </div>
   );
-}
+};
+
+export default Upload;
