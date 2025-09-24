@@ -40,10 +40,10 @@ const Gallery = () => {
   }
 
   return (
-    <div className="min-h-screen w-full worldscars-bg">
+    <div className="w-screen min-h-screen worldscars-bg">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-20 bg-gray-50/95 backdrop-blur-lg border-b border-gray-200/40">
-        <div className="w-full px-4 sm:px-6 lg:px-8">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
           <div className="flex items-center justify-between h-14 sm:h-16 lg:h-18">
             <div className="flex items-center gap-2 sm:gap-3">
               <div className="text-stone-600">
@@ -97,17 +97,18 @@ const Gallery = () => {
       </header>
 
       {/* Main Content */}
-      <main className="w-full px-6 py-8 pt-24 sm:px-8 lg:px-12 xl:px-16 2xl:px-20">
-        <div className="mb-16 text-center">
-          <h1 className="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl lg:text-6xl mb-6">
-            Historical Images
-          </h1>
-          <p className="max-w-3xl mx-auto text-lg text-gray-600 leading-relaxed">
-            Discover powerful moments that shaped our world through this curated collection of historical photographs and artworks.
-          </p>
-        </div>
+      <main className="w-screen min-h-screen pt-24 pb-8">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
+          <div className="mb-16 text-center">
+            <h1 className="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl lg:text-6xl mb-6">
+              Historical Images
+            </h1>
+            <p className="max-w-screen-md mx-auto text-lg text-gray-600 leading-relaxed">
+              Discover powerful moments that shaped our world through this curated collection of historical photographs and artworks.
+            </p>
+          </div>
 
-        {images.length === 0 ? (
+          {images.length === 0 ? (
           <div className="text-center py-20">
             <div className="mb-8">
               <div className="w-32 h-32 mx-auto bg-gray-100/50 rounded-2xl flex items-center justify-center mb-6 shadow-inner">
@@ -157,6 +158,7 @@ const Gallery = () => {
             ))}
           </div>
         )}
+        </div>
       </main>
     </div>
   );
