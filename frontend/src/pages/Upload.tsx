@@ -68,10 +68,10 @@ const Upload = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen worldscars-bg text-gray-800">
+    <div className="flex flex-col w-screen min-h-screen worldscars-bg text-gray-800">
       {/* Header */}
       <header className="sticky top-0 z-20 bg-gray-50/95 backdrop-blur-lg border-b border-gray-200/40">
-        <div className="w-full px-4 sm:px-6 lg:px-8">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
           <div className="flex items-center justify-between h-14 sm:h-16 lg:h-18">
             <div className="flex items-center gap-2 sm:gap-3">
               <div className="text-stone-600">
@@ -120,8 +120,8 @@ const Upload = () => {
       </header>
 
       {/* Main Content */}
-      <main className="flex-grow w-full px-6 py-8 sm:px-8 lg:px-12 xl:px-16 2xl:px-20">
-        <div className="max-w-4xl mx-auto">
+      <main className="flex-grow w-screen min-h-screen py-8">
+        <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
           <div className="mb-8">
             <h2 className="text-4xl font-bold tracking-tight">Upload New Historical Image</h2>
             <p className="mt-2 text-slate-500">Fill in the details below to add a new image to the archive.</p>

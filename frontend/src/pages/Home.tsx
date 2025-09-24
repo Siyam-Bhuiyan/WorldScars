@@ -9,10 +9,10 @@ const Home = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="relative h-screen w-full overflow-hidden">
+    <div className="relative w-screen h-screen overflow-hidden">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-30 bg-gray-900/20 backdrop-blur-sm border-b border-white/10">
-        <div className="w-full px-4 sm:px-6 lg:px-8">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
           <div className="flex items-center justify-between h-14 sm:h-16 lg:h-18">
             <div className="flex items-center gap-2 sm:gap-3">
               <div className="text-white">
@@ -61,8 +61,8 @@ const Home = () => {
       </header>
 
       {/* Main Hero Section */}
-      <main className="absolute inset-0 w-full h-full">
-        <div className="relative h-full w-full">
+      <main className="absolute inset-0 w-screen h-screen">
+        <div className="relative w-full h-full">
           {/* Animated Background Images using local assets */}
           <div 
             className="absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-in-out opacity-0 animate-fade-in"
@@ -87,9 +87,9 @@ const Home = () => {
           ></div>
 
           {/* Hero Content */}
-          <div className="relative z-10 flex h-full flex-col items-center justify-center text-center text-white px-4 sm:px-6 lg:px-8">
-            <div className="max-w-7xl w-full">
-              <div className="max-w-4xl mx-auto">
+          <div className="relative z-10 flex h-full flex-col items-center justify-center text-center text-white">
+            <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 w-full">
+              <div className="max-w-screen-lg mx-auto">
                 <h1 
                   className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-tight tracking-tight mb-4 sm:mb-6"
                   style={{ textShadow: '0 2px 20px rgba(0,0,0,0.7)' }}
