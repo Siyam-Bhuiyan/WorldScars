@@ -6,16 +6,14 @@ import ImageDetail from './pages/ImageDetail'
 
 function App() {
   return (
-    <div className="h-full overflow-hidden">
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/upload" element={<Upload />} />
-          <Route path="/image/:id" element={<ImageDetail />} />
-        </Routes>
-      </Router>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/upload" element={<Upload />} />
+        <Route path="/image/:id" element={<ImageDetail />} />
+      </Routes>
+    </Router>
   )
 }
 

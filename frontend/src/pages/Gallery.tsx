@@ -33,132 +33,114 @@ const Gallery = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#f8f5f2]">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1173d4]"></div>
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-stone-50 via-gray-50 to-stone-100">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-stone-800"></div>
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-screen w-full flex-col bg-[#f8f5f2] text-[#333333]">
+    <div className="min-h-screen w-full bg-gradient-to-br from-stone-50 via-gray-50 to-stone-100">
       {/* Header */}
-      <header className="sticky top-0 z-10 w-full border-b border-gray-200/20 bg-[#f8f5f2]/80 backdrop-blur-sm">
-        <div className="container mx-auto flex items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-6">
-            <button onClick={() => navigate('/')} className="flex items-center gap-2 text-[#333333]">
-              <svg className="text-[#1173d4] text-3xl" fill="currentColor" viewBox="0 0 24 24" width="32" height="32">
-                <path d="M12 3L2 9v10c0 5.55 3.84 9 9 9s9-4.03 9-9V9l-8-6z"/>
-              </svg>
-              <span className="text-xl font-bold">WorldScars</span>
-            </button>
-            <nav className="hidden md:flex items-center gap-6">
-              <button 
-                onClick={() => navigate('/')}
-                className="text-sm font-medium text-[#757575] hover:text-[#1173d4] transition-colors"
-              >
-                Home
-              </button>
-              <a className="text-sm font-medium text-[#757575] hover:text-[#1173d4] transition-colors" href="#">Explore</a>
-              <a className="text-sm font-medium text-[#757575] hover:text-[#1173d4] transition-colors" href="#">Exhibitions</a>
-            </nav>
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="relative hidden sm:block">
-              <svg className="absolute left-3 top-1/2 -translate-y-1/2 text-[#757575] w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" x2="16.65" y1="21" y2="16.65"></line>
-              </svg>
-              <input 
-                className="w-full rounded-full border border-gray-300/50 bg-white py-2 pl-10 pr-4 text-sm focus:border-[#1173d4] focus:ring-[#1173d4] focus:outline-none" 
-                placeholder="Search artworks..." 
-                type="text"
-              />
+      <header className="fixed top-0 left-0 right-0 z-20 bg-stone-50/90 backdrop-blur-lg border-b border-stone-200/30">
+        <div className="w-full px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-14 sm:h-16 lg:h-18">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="text-stone-600">
+                <svg className="w-6 h-6 sm:w-7 sm:h-7" fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z"></path>
+                </svg>
+              </div>
+              <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-stone-800">WorldScars</h2>
             </div>
-            <button className="relative rounded-full p-2 text-[#757575] hover:bg-gray-200/50 hover:text-[#333333] transition-colors">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-5 5h-5v-5z M4 19.5A2.5 2.5 0 0 1 1.5 17v-9A2.5 2.5 0 0 1 4 5.5h16A2.5 2.5 0 0 1 22.5 8v9a2.5 2.5 0 0 1-2.5 2.5H4z" />
-              </svg>
-            </button>
-            <button 
-              onClick={() => navigate('/upload')}
-              className="size-9 rounded-full bg-cover bg-center bg-[#1173d4] flex items-center justify-center text-white hover:bg-[#1173d4]/90 transition-colors"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-              </svg>
-            </button>
+            <nav className="hidden md:flex items-center gap-6 lg:gap-10">
+              <button 
+                onClick={() => navigate('/gallery')}
+                className="text-xs sm:text-sm font-medium text-stone-600 hover:text-stone-800 transition-colors"
+              >
+                Explore
+              </button>
+              <a className="text-xs sm:text-sm font-medium text-stone-600 hover:text-stone-800 transition-colors" href="#">Collections</a>
+              <a className="text-xs sm:text-sm font-medium text-stone-600 hover:text-stone-800 transition-colors" href="#">About</a>
+            </nav>
+            <div className="flex items-center gap-1 sm:gap-2">
+              <button className="rounded-full p-1.5 sm:p-2 text-stone-600 hover:text-stone-800 hover:bg-stone-200/50 transition-colors">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" x2="16.65" y1="21" y2="16.65"></line>
+                </svg>
+              </button>
+              <button className="rounded-full p-1.5 sm:p-2 text-stone-600 hover:text-stone-800 hover:bg-stone-200/50 transition-colors">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                </svg>
+              </button>
+              {/* Mobile menu button */}
+              <button className="md:hidden rounded-full p-1.5 sm:p-2 text-stone-600 hover:text-stone-800 hover:bg-stone-200/50 transition-colors">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto flex-1 px-4 py-8 sm:px-6 lg:px-8">
-        <div className="mb-12 text-center">
-          <h1 className="text-4xl font-bold tracking-tight text-[#333333] sm:text-5xl lg:text-6xl">
-            Influential Images Gallery
+      <main className="w-full px-6 py-8 pt-24 sm:px-8 lg:px-12 xl:px-16 2xl:px-20">
+        <div className="mb-20 text-center">
+          <h1 className="text-5xl font-bold tracking-tight text-stone-800 sm:text-6xl lg:text-7xl mb-8">
+            Historical Images
           </h1>
-          <p className="mt-4 max-w-2xl mx-auto text-lg text-[#757575]">
-            A curated collection of influential historical moments and artworks throughout history.
+          <p className="max-w-4xl mx-auto text-xl text-stone-600 leading-relaxed">
+            Discover powerful moments that shaped our world through this curated collection of historical photographs and artworks.
           </p>
         </div>
 
         {images.length === 0 ? (
-          <div className="text-center py-20">
-            <div className="mb-6">
-              <div className="w-24 h-24 mx-auto bg-[#333333]/10 rounded-xl flex items-center justify-center mb-4">
-                <svg className="w-12 h-12 text-[#333333]/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="text-center py-24">
+            <div className="mb-8">
+              <div className="w-36 h-36 mx-auto bg-stone-100 rounded-3xl flex items-center justify-center mb-8 shadow-inner">
+                <svg className="w-18 h-18 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-[#333333]/70 mb-2">No images yet</h3>
-              <p className="text-[#757575] mb-6">Start building your collection of historical moments</p>
+              <h3 className="text-3xl font-bold text-stone-700 mb-4">No images yet</h3>
+              <p className="text-xl text-stone-500 mb-10 max-w-lg mx-auto">Start building your collection of powerful historical moments and artworks</p>
               <button
                 onClick={() => navigate('/upload')}
-                className="px-8 py-3 bg-[#1173d4] hover:bg-[#1173d4]/90 text-white rounded-full font-medium transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="px-10 py-5 bg-stone-800 hover:bg-stone-700 text-stone-50 text-lg font-semibold rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1"
               >
                 Upload First Image
               </button>
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4">
             {images.map((image) => (
               <Link
                 key={image.id}
                 to={`/image/${image.id}`}
                 className="group cursor-pointer"
               >
-                <div className="group relative flex flex-col overflow-hidden rounded-xl bg-white shadow-sm transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
-                  <div className="overflow-hidden">
+                <div className="group relative overflow-hidden rounded-3xl bg-stone-50 shadow-xl transition-all duration-500 hover:shadow-2xl hover:-translate-y-3 border border-stone-200/60 hover:border-stone-300/80">
+                  {/* Square Image Container */}
+                  <div className="aspect-square overflow-hidden bg-stone-100">
                     <img 
                       alt={image.title} 
-                      className="h-auto w-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105" 
+                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" 
                       src={image.imageUrl}
                       loading="lazy"
-                      style={{ aspectRatio: '3/4' }}
                     />
+                    {/* Overlay gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-stone-900/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   </div>
-                  <div className="p-5">
-                    <h3 className="text-lg font-bold text-[#333333] mb-1 line-clamp-2">
+                  
+                  {/* Card Content */}
+                  <div className="p-8">
+                    <h3 className="text-xl font-bold text-stone-800 mb-3 line-clamp-2 group-hover:text-stone-600 transition-colors leading-tight">
                       {image.title}
                     </h3>
-                    {image.location && (
-                      <p className="text-sm text-[#757575] mb-2">
-                        {image.location}
-                      </p>
-                    )}
-                    {image.description && (
-                      <p className="text-sm text-[#757575] line-clamp-3">
-                        {image.description}
-                      </p>
-                    )}
-                    <div className="mt-3 text-xs text-[#757575]">
-                      {new Date(image.uploadedAt).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                      })}
-                    </div>
                   </div>
                 </div>
               </Link>
@@ -166,34 +148,6 @@ const Gallery = () => {
           </div>
         )}
       </main>
-
-      {/* Footer */}
-      <footer className="border-t border-gray-200/20 bg-[#f8f5f2] mt-16">
-        <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
-          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-            <p className="text-sm text-[#757575]">© 2024 WorldScars. All rights reserved.</p>
-            <div className="flex gap-4">
-              <a className="text-[#757575] hover:text-[#1173d4] transition-colors" href="#" aria-label="Twitter">
-                <svg fill="none" height="24" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" width="24">
-                  <path d="M22 4s-.7 2.1-2 3.4c1.6 1.4 2.8 3.2 3 5.2-2.7-1.1-5.4-2-8-2.6-2.6-.7-5.3-1-8-1.3-.2 2.6-1 5.1-2.6 7.1-1.3 1.6-3 2.9-4.9 3.9 2.4-.1 4.7-.6 7-1.5 2.3-.9 4.4-2.1 6.3-3.7 1.9-1.6 3.6-3.4 5-5.5z"></path>
-                </svg>
-              </a>
-              <a className="text-[#757575] hover:text-[#1173d4] transition-colors" href="#" aria-label="Instagram">
-                <svg fill="none" height="24" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" width="24">
-                  <rect height="20" rx="5" ry="5" width="20" x="2" y="2"></rect>
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                  <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
-                </svg>
-              </a>
-              <a className="text-[#757575] hover:text-[#1173d4] transition-colors" href="#" aria-label="Facebook">
-                <svg fill="none" height="24" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" width="24">
-                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-                </svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };
