@@ -110,7 +110,7 @@ const Gallery = () => {
         {images.length === 0 ? (
           <div className="text-center py-20">
             <div className="mb-8">
-              <div className="w-32 h-32 mx-auto bg-gray-100 rounded-2xl flex items-center justify-center mb-6 shadow-inner">
+              <div className="w-32 h-32 mx-auto bg-gray-100/50 rounded-2xl flex items-center justify-center mb-6 shadow-inner">
                 <svg className="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
@@ -133,9 +133,9 @@ const Gallery = () => {
                 to={`/image/${image.id}`}
                 className="group cursor-pointer"
               >
-                <div className="group relative overflow-hidden rounded-2xl bg-stone-50 shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border border-stone-200/50 hover:border-stone-300/70">
+                <div className="group relative overflow-hidden rounded-2xl bg-gray-50/80 shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border border-gray-200/50 hover:border-gray-300/70">
                   {/* Square Image Container */}
-                  <div className="aspect-square overflow-hidden bg-stone-100">
+                  <div className="aspect-square overflow-hidden bg-gray-100/80">
                     <img 
                       alt={image.title} 
                       className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" 

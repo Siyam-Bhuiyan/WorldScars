@@ -94,13 +94,13 @@ const Home = () => {
                   className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-tight tracking-tight mb-4 sm:mb-6"
                   style={{ textShadow: '0 2px 20px rgba(0,0,0,0.7)' }}
                 >
-                  Images That Shaped The World
+                  Images That Cursed The World
                 </h1>
                 <p 
                   className="text-base sm:text-lg md:text-xl lg:text-2xl font-light text-gray-200 mb-8 sm:mb-10 max-w-3xl mx-auto leading-relaxed"
                   style={{ textShadow: '0 2px 15px rgba(0,0,0,0.6)' }}
                 >
-                  A curated journey through the most influential visual moments in history and art.
+                  A curated journey through the most influential visual moments in History and Art.
                 </p>
                 <button
                   onClick={() => navigate('/gallery')}

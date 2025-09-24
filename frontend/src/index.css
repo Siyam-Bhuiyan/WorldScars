@@ -3,13 +3,13 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Global soft gray background override */
+/* Global deep gray background override */
 .worldscars-bg {
   background: linear-gradient(
     135deg,
-    #f9fafb 0%,
-    #f3f4f6 50%,
-    #f9fafb 100%
+    #e5e7eb 0%,
+    #d1d5db 50%,
+    #e5e7eb 100%
   ) !important;
   min-height: 100vh !important;
 }
@@ -18,9 +18,9 @@
 .bg-gradient-to-br.from-gray-50 {
   background: linear-gradient(
     135deg,
-    #f9fafb 0%,
-    #f3f4f6 50%,
-    #f9fafb 100%
+    #e5e7eb 0%,
+    #d1d5db 50%,
+    #e5e7eb 100%
   ) !important;
 }
 
@@ -28,17 +28,17 @@
 .min-h-screen {
   background: linear-gradient(
     135deg,
-    #f9fafb 0%,
-    #f3f4f6 50%,
-    #f9fafb 100%
+    #e5e7eb 0%,
+    #d1d5db 50%,
+    #e5e7eb 100%
   ) !important;
 }
 
 @layer base {
   :root {
     --primary: #6b7280;
-    --background-light: #f9fafb;
-    --background-medium: #f3f4f6;
+    --background-light: #e5e7eb;
+    --background-medium: #d1d5db;
     --background-dark: #374151;
     --text-primary: #1f2937;
     --text-secondary: #6b7280;
@@ -52,9 +52,9 @@
     overflow-x: hidden;
     background: linear-gradient(
       135deg,
-      #f9fafb 0%,
-      #f3f4f6 50%,
-      #f9fafb 100%
+      #e5e7eb 0%,
+      #d1d5db 50%,
+      #e5e7eb 100%
     ) !important;
   }
 
@@ -63,19 +63,19 @@
     width: 100%;
     background: linear-gradient(
       135deg,
-      #f9fafb 0%,
-      #f3f4f6 50%,
-      #f9fafb 100%
+      #e5e7eb 0%,
+      #d1d5db 50%,
+      #e5e7eb 100%
     ) !important;
   }
 
-  /* Force soft gray background on all page containers */
+  /* Force deep gray background on all page containers */
   .min-h-screen {
     background: linear-gradient(
       135deg,
-      #f9fafb 0%,
-      #f3f4f6 50%,
-      #f9fafb 100%
+      #e5e7eb 0%,
+      #d1d5db 50%,
+      #e5e7eb 100%
     ) !important;
   }
 }
@@ -213,32 +213,50 @@
   }
 
   /* Override Tailwind's default white backgrounds */
-  .bg-white {
+  .bg-white,
+  .bg-stone-50,
+  .bg-stone-100,
+  .bg-gray-50,
+  .bg-gray-100 {
     background: linear-gradient(
       135deg,
-      #f9fafb 0%,
-      #f3f4f6 50%,
-      #f9fafb 100%
+      #e5e7eb 0%,
+      #d1d5db 50%,
+      #e5e7eb 100%
     ) !important;
   }
 
-  /* Soft gray background utility class */
+  /* Deep gray background utility class */
   .bg-soft-gray {
     background: linear-gradient(
       135deg,
-      #f9fafb 0%,
-      #f3f4f6 50%,
-      #f9fafb 100%
+      #e5e7eb 0%,
+      #d1d5db 50%,
+      #e5e7eb 100%
     ) !important;
   }
 
-  /* Ensure all main containers have soft gray background */
+  /* Ensure all main containers have deep gray background */
   div[class*="bg-gradient-to-br"] {
     background: linear-gradient(
       135deg,
-      #f9fafb 0%,
-      #f3f4f6 50%,
-      #f9fafb 100%
+      #e5e7eb 0%,
+      #d1d5db 50%,
+      #e5e7eb 100%
+    ) !important;
+  }
+
+  /* Force override any remaining white/light backgrounds */
+  div[class*="bg-white"],
+  div[class*="bg-stone-50"],
+  div[class*="bg-stone-100"],
+  div[class*="bg-gray-50"],
+  div[class*="bg-gray-100"] {
+    background: linear-gradient(
+      135deg,
+      #e5e7eb 0%,
+      #d1d5db 50%,
+      #e5e7eb 100%
     ) !important;
   }
 }
