@@ -1,47 +1,24 @@
-# Render Free Tier Deployment Configuration
-# This deploys all services: Database + Backend + Frontend
-
+# Render Deployment Configuration
 services:
-  # PostgreSQL Database (Free Tier)
-  - type: pgsql
-    name: worldscars-db
-    plan: free
-    # Render auto-creates database and provides connection string
-
-  # Backend API (Free Tier - sleeps after 15min inactivity)
   - type: web
     name: worldscars-backend
-    plan: free
     runtime: java
     buildCommand: "./mvnw clean package -DskipTests"
     startCommand: "java -jar target/backend-0.0.1-SNAPSHOT.jar"
     envVars:
       - key: SPRING_PROFILES_ACTIVE
         value: production
-      - key: DATABASE_URL
-        fromService:
-          type: pgsql
-          name: worldscars-db
-          property: connectionString
+      - key: SPRING_DATASOURCE_URL
+        fromSecret: DATABASE_URL
+      - key: SPRING_DATASOURCE_USERNAME
+        fromSecret: DATABASE_USERNAME
+      - key: SPRING_DATASOURCE_PASSWORD
+        fromSecret: DATABASE_PASSWORD
+      - key: SPRING_JPA_HIBERNATE_DDL_AUTO
+        value: update
       - key: CLOUDINARY_CLOUD_NAME
-        sync: false  # Set in Render dashboard
+        fromSecret: CLOUDINARY_CLOUD_NAME
       - key: CLOUDINARY_API_KEY
-        sync: false  # Set in Render dashboard
+        fromSecret: CLOUDINARY_API_KEY
       - key: CLOUDINARY_API_SECRET
-        sync: false  # Set in Render dashboard
-      - key: FRONTEND_URL
-        sync: false  # Will update after frontend deployment
-
-  # Frontend (Free Tier - Static Site)
-  - type: web
-    name: worldscars-frontend
-    plan: free
-    buildCommand: "cd frontend && npm install && npm run build"
-    staticPublishPath: "./frontend/dist"
-    pullRequestPreviewsEnabled: true
-    envVars:
-      - key: VITE_API_BASE_URL
-        fromService:
-          type: web
-          name: worldscars-backend
-          property: host
+        fromSecret: CLOUDINARY_API_SECRET

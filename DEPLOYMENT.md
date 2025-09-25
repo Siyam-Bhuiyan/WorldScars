@@ -130,52 +130,44 @@ FRONTEND_URL=https://your-app-domain.com
 
 ---
 
-## 🆓 Render Free Tier Deployment (Docker Alternative)
+## 🐳 Docker Deployment Tutorial (Railway)
 
-**Perfect for you!** Render supports your existing Docker setup with their free tier.
+### Step 1: Sign up for Railway
+1. Go to [Railway](https://railway.app)
+2. Sign up with GitHub
+3. Connect your repository: `Siyam-Bhuiyan/WorldScars`
 
-### Step 1: Deploy from GitHub
-1. Go to [Render Dashboard](https://dashboard.render.com)
-2. Click **"New +"** → **"Blueprint"**
-3. Connect your GitHub repository: `Siyam-Bhuiyan/WorldScars`
-4. Render will detect your `render.yaml` and `docker-compose.yml`
+### Step 2: Configure Environment
+Railway auto-detects your `docker-compose.yml` and creates services for:
+- PostgreSQL database
+- Backend (Spring Boot)
+- Frontend (React + Nginx)
 
-### Step 2: Configure Services
-Render will create 3 services automatically:
-- **PostgreSQL Database** (Free tier)
-- **Backend API** (Free tier - sleeps after 15min)
-- **Frontend** (Free tier - static site)
-
-### Step 3: Set Environment Secrets
-In each service dashboard, add these environment variables:
-
-**For Backend Service:**
+### Step 3: Set Environment Variables
+In Railway dashboard → Variables:
 ```env
+# Database (Railway provides these automatically)
+DATABASE_URL=postgresql://...
+DATABASE_USERNAME=postgres
+DATABASE_PASSWORD=[auto-generated]
+
+# Cloudinary
 CLOUDINARY_CLOUD_NAME=your_cloud_name
 CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
-FRONTEND_URL=https://worldscars-frontend.onrender.com
+
+# Frontend
+VITE_API_BASE_URL=https://worldscars-backend.railway.app
+FRONTEND_URL=https://worldscars.railway.app
 ```
 
 ### Step 4: Deploy
-1. Click **"Create Blueprint"**
-2. Wait for all services to deploy (5-10 minutes)
-3. Get your URLs from the service dashboards
+1. Click "Deploy"
+2. Railway builds and deploys all services
+3. Get your URLs from the dashboard
 
-### Step 5: Update CORS
-After frontend deploys, update the backend's `FRONTEND_URL` with the actual frontend URL.
-
-### 🎯 Free Tier Limitations
-- **Web services sleep** after 15 minutes of inactivity
-- **Database**: 512MB storage, limited connections
-- **Static sites**: Unlimited bandwidth, always awake
-
-### 🚀 Your URLs will be:
-- **Frontend**: `https://worldscars-frontend.onrender.com`
-- **Backend**: `https://worldscars-backend.onrender.com`
-- **Database**: Managed PostgreSQL (internal only)
-
-**Total Cost: $0/month** (but services sleep when inactive)
+### Step 5: Update CORS (if needed)
+If you get CORS errors, update the `FRONTEND_URL` with your actual Railway domain.
 
 ---
 
@@ -333,9 +325,8 @@ docker system prune -f
 ## 💰 Cost Comparison
 
 ### Docker Deployment (Single Platform)
-- **Railway**: $5/month base + usage
-- **Render Free Tier**: **$0/month** (services sleep after 15min inactivity)
-- **Render Paid**: $7/month for web service + $7/month for DB
+- **Railway**: $5/month base + usage (very affordable)
+- **Render**: $7/month for web service + $7/month for DB
 - **DigitalOcean**: $12/month (App Platform)
 
 ### Separate Services
@@ -344,7 +335,7 @@ docker system prune -f
 - **Netlify**: Free tier (100GB bandwidth)
 - **Cloudinary**: Free tier (25GB storage)
 
-**🎉 Render Free Tier is FREE and uses your Docker setup!**
+**Docker deployment is often cheaper and simpler!**
 
 ## 🎯 Deployment Checklist
 
