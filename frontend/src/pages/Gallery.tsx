@@ -137,10 +137,10 @@ const Gallery = () => {
               >
                 <div className="relative overflow-hidden rounded-2xl bg-gray-800 shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border border-gray-700 hover:border-gray-600">
                   {/* Image Container */}
-                  <div className="relative aspect-[3/4] overflow-hidden bg-gray-900">
+                  <div className="relative aspect-[6/4] overflow-hidden bg-gray-600">
                     <img 
                       alt={image.title} 
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                      className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" 
                       src={image.imageUrl}
                       loading="lazy"
                     />
