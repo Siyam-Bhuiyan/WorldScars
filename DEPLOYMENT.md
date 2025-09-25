@@ -15,6 +15,7 @@ Complete step-by-step guide to deploy WorldScars with separate services: Fronten
 **Yes! You can deploy your entire application using Docker!** Here are the best options:
 
 ### Option A: Railway (Recommended for Docker)
+
 1. Go to [Railway](https://railway.app)
 2. Connect your GitHub repo
 3. Railway auto-detects `docker-compose.yml`
@@ -22,18 +23,21 @@ Complete step-by-step guide to deploy WorldScars with separate services: Fronten
 5. Deploy!
 
 ### Option B: Render (Docker Compose Support)
+
 1. Go to [Render Dashboard](https://dashboard.render.com)
 2. Click "New +" → "Blueprint" (supports docker-compose.yml)
 3. Connect your GitHub repository
 4. Render will deploy all services automatically
 
 ### Option C: DigitalOcean App Platform
+
 1. Go to [DigitalOcean App Platform](https://cloud.digitalocean.com/apps)
 2. Create new app from GitHub
 3. Select "Docker" as source type
 4. Deploy with environment variables
 
 ### Environment Variables for Docker Deployment
+
 ```env
 # Database
 POSTGRES_PASSWORD=your_secure_password
@@ -51,10 +55,87 @@ FRONTEND_URL=https://your-app-domain.com
 ```
 
 ### Benefits of Docker Deployment
+
 - ✅ **Single platform** - No service separation complexity
 - ✅ **Consistent environment** - Same setup as local development
 - ✅ **Easier scaling** - Scale entire stack together
 - ✅ **Cost effective** - Often cheaper than separate services
+
+---
+
+## 🚂 Railway Free Tier Deployment (RECOMMENDED)
+
+**Railway is the easiest way to deploy your Docker Compose app for FREE!**
+
+### Step 1: Create Railway Account
+1. Go to [Railway](https://railway.app)
+2. Sign up with your GitHub account
+3. **Free tier includes:** 512MB RAM, 1GB disk, 1 CPU per service
+
+### Step 2: Connect Your Repository
+1. Click **"New Project"** → **"Deploy from GitHub repo"**
+2. Search for and select: `Siyam-Bhuiyan/WorldScars`
+3. Click **"Deploy"**
+
+### Step 3: Railway Auto-Detects Services
+Railway will automatically detect your `docker-compose.yml` and create:
+- ✅ **PostgreSQL database** (free tier included)
+- ✅ **Backend service** (Spring Boot)
+- ✅ **Frontend service** (React + Nginx)
+
+### Step 4: Set Environment Variables
+In your Railway project dashboard:
+
+#### For Backend Service:
+```
+CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+FRONTEND_URL=https://worldscars-production.up.railway.app
+```
+
+#### For Frontend Service:
+```
+VITE_API_BASE_URL=https://worldscars-backend-production.up.railway.app
+```
+
+### Step 5: Deploy and Get URLs
+1. Railway will build and deploy all services automatically
+2. **Wait 5-10 minutes** for first deployment
+3. Get your URLs from the Railway dashboard:
+   - **Frontend:** `https://worldscars-production.up.railway.app`
+   - **Backend:** `https://worldscars-backend-production.up.railway.app`
+
+### Step 6: Update CORS (if needed)
+If you get CORS errors:
+1. Go to Backend service → Variables
+2. Update `FRONTEND_URL` with your actual frontend URL from Railway
+
+### Step 7: Test Your Deployment
+```bash
+# Test backend
+curl https://your-backend-url.up.railway.app/api/test
+
+# Test frontend
+# Visit your frontend URL in browser
+```
+
+---
+
+## 🎯 Railway vs Other Platforms
+
+| Feature | Railway Free | Render Free | Netlify Free |
+|---------|-------------|-------------|--------------|
+| **PostgreSQL** | ✅ Included | ❌ Paid only | ❌ N/A |
+| **Docker Support** | ✅ Full | ⚠️ Limited | ❌ N/A |
+| **Auto-scaling** | ✅ Yes | ❌ No | ✅ CDN |
+| **Custom Domain** | ✅ Yes | ❌ No | ✅ Yes |
+| **Monthly Hours** | 512 hours | 750 hours | Unlimited |
+| **Setup Time** | 5 minutes | 30+ minutes | 10 minutes |
+
+**Railway is perfect for your Docker setup!** 🚀
+
+---
 
 ## 🗄️ Step 1: Deploy Database (Render PostgreSQL)
 
@@ -105,6 +186,7 @@ FRONTEND_URL=https://your-app-domain.com
 ```
 
 ### Benefits of Docker Deployment
+
 - ✅ **Single platform** - No service separation complexity
 - ✅ **Consistent environment** - Same setup as local development
 - ✅ **Easier scaling** - Scale entire stack together
@@ -115,6 +197,7 @@ FRONTEND_URL=https://your-app-domain.com
 ## 🔀 Choose Your Deployment Method
 
 ### Method 1: Docker Deployment (Easier)
+
 **Recommended if you want simplicity and already have Docker setup**
 
 - **Railway**: Best for Docker Compose, auto-scaling
@@ -122,6 +205,7 @@ FRONTEND_URL=https://your-app-domain.com
 - **DigitalOcean**: Good Docker support, predictable pricing
 
 ### Method 2: Separate Services (More Scalable)
+
 **Recommended for production with high traffic**
 
 - **Frontend**: Netlify (CDN, fast)
@@ -133,18 +217,23 @@ FRONTEND_URL=https://your-app-domain.com
 ## 🐳 Docker Deployment Tutorial (Railway)
 
 ### Step 1: Sign up for Railway
+
 1. Go to [Railway](https://railway.app)
 2. Sign up with GitHub
 3. Connect your repository: `Siyam-Bhuiyan/WorldScars`
 
 ### Step 2: Configure Environment
+
 Railway auto-detects your `docker-compose.yml` and creates services for:
+
 - PostgreSQL database
 - Backend (Spring Boot)
 - Frontend (React + Nginx)
 
 ### Step 3: Set Environment Variables
+
 In Railway dashboard → Variables:
+
 ```env
 # Database (Railway provides these automatically)
 DATABASE_URL=postgresql://...
@@ -162,16 +251,19 @@ FRONTEND_URL=https://worldscars.railway.app
 ```
 
 ### Step 4: Deploy
+
 1. Click "Deploy"
 2. Railway builds and deploys all services
 3. Get your URLs from the dashboard
 
 ### Step 5: Update CORS (if needed)
+
 If you get CORS errors, update the `FRONTEND_URL` with your actual Railway domain.
 
 ---
 
 ## 🌐 Separate Services Deployment (Advanced)
+
 ```
 
 ### 2.2 Deploy Backend Service
@@ -179,12 +271,14 @@ If you get CORS errors, update the `FRONTEND_URL` with your actual Railway domai
 1. Click **"New +"** → **"Web Service"**
 2. **Connect** your GitHub repository: `Siyam-Bhuiyan/WorldScars`
 3. Configure build settings:
-   ```
-   Name: worldscars-backend
-   Runtime: Java
-   Build Command: ./mvnw clean package -DskipTests
-   Start Command: java -jar target/backend-0.0.1-SNAPSHOT.jar
-   ```
+```
+
+Name: worldscars-backend
+Runtime: Java
+Build Command: ./mvnw clean package -DskipTests
+Start Command: java -jar target/backend-0.0.1-SNAPSHOT.jar
+
+```
 4. **Environment**: Select all secrets you created
 5. **Advanced**: Set health check path to `/api/test`
 6. Click **"Create Web Service"**
@@ -203,15 +297,19 @@ If you get CORS errors, update the `FRONTEND_URL` with your actual Railway domai
 2. Click **"New site from Git"**
 3. **Connect** GitHub repository: `Siyam-Bhuiyan/WorldScars`
 4. Configure build settings:
-   ```
-   Base directory: frontend
-   Build command: npm run build
-   Publish directory: frontend/dist
-   ```
+```
+
+Base directory: frontend
+Build command: npm run build
+Publish directory: frontend/dist
+
+```
 5. **Environment variables**:
-   ```
-   VITE_API_BASE_URL=https://worldscars-backend.onrender.com
-   ```
+```
+
+VITE_API_BASE_URL=https://worldscars-backend.onrender.com
+
+````
 6. Click **"Deploy site"**
 
 ### 3.2 Alternative: Manual Deploy
@@ -220,7 +318,7 @@ If you get CORS errors, update the `FRONTEND_URL` with your actual Railway domai
 cd frontend
 npm run build
 # Drag and drop the 'dist' folder to Netlify dashboard
-```
+````
 
 ### 3.3 Get Frontend URL
 
@@ -325,11 +423,13 @@ docker system prune -f
 ## 💰 Cost Comparison
 
 ### Docker Deployment (Single Platform)
+
 - **Railway**: $5/month base + usage (very affordable)
 - **Render**: $7/month for web service + $7/month for DB
 - **DigitalOcean**: $12/month (App Platform)
 
 ### Separate Services
+
 - **Render PostgreSQL**: $7/month (Basic plan)
 - **Render Web Service**: $7/month (Basic plan)
 - **Netlify**: Free tier (100GB bandwidth)
