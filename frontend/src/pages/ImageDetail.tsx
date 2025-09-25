@@ -137,78 +137,70 @@ const ImageDetail = () => {
             <span className="text-gray-800">Historical Images</span>
           </div>
 
-          {/* Main Image Container */}
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-12">
-            {/* Image Display - More Space */}
-            <div className="lg:col-span-3">
-              <div className="w-full bg-gray-100 rounded-xl shadow-2xl overflow-hidden">
-                {!imageLoaded && (
-                  <div className="w-full aspect-[4/3] flex items-center justify-center bg-gray-200 rounded-xl">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-700"></div>
-                  </div>
-                )}
-                <img
-                  src={image.imageUrl}
-                  alt={image.title}
-                  className="w-full h-auto object-contain max-h-[70vh] mx-auto"
-                  onLoad={() => setImageLoaded(true)}
-                />
-              </div>
-            </div>
-
-            {/* Image Info Sidebar */}
-            <div className="lg:col-span-1 space-y-4">
-              {/* Title and Link */}
-              <div className="bg-gray-100 rounded-lg p-4">
-                <div className="flex items-start justify-between gap-2 mb-2">
-                  <h1 className="text-2xl lg:text-3xl font-bold text-gray-800 leading-tight flex-1">{image.title}</h1>
-                  <button
-                    onClick={() => {
-                      // You can replace this with actual link functionality
-                      console.log('External link clicked');
-                    }}
-                    className="flex-shrink-0 p-2 bg-blue-100 hover:bg-blue-200 rounded-lg transition-colors group"
-                    title="External Link"
-                  >
-                    <svg className="w-4 h-4 text-blue-600 group-hover:text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
-                  </button>
+          {/* Image Display - Full Width */}
+          <div className="mb-8">
+            <div className="w-full bg-gray-100 rounded-xl shadow-2xl overflow-hidden">
+              {!imageLoaded && (
+                <div className="w-full aspect-[4/3] flex items-center justify-center bg-gray-200 rounded-xl">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-700"></div>
                 </div>
-              </div>
-
-              {/* Date and Location */}
-              <div className="bg-gray-50 rounded-lg p-4">
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
-                  <span>{formatDate(image.uploadedAt)}</span>
-                </div>
-                {image.location && (
-                  <div className="flex items-center gap-2 text-sm text-gray-600 mt-2">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    <span>{image.location}</span>
-                  </div>
-                )}
-              </div>
+              )}
+              <img
+                src={image.imageUrl}
+                alt={image.title}
+                className="w-full h-auto object-contain max-h-[70vh] mx-auto"
+                onLoad={() => setImageLoaded(true)}
+              />
             </div>
           </div>
 
-          {/* Description - Full Width */}
-          {image.description && (
-            <div className="bg-gray-200/60 rounded-xl p-8 shadow-sm">
-              <h2 className="text-2xl font-bold text-gray-800 mb-6">Description</h2>
+          {/* Single Info Section - Title, Date, Link, Description */}
+          <div className="bg-gray-100/80 rounded-xl p-8 shadow-sm">
+            {/* Title and Link */}
+            <div className="flex items-start justify-between gap-4 mb-6">
+              <h1 className="text-3xl lg:text-4xl font-bold text-gray-800 leading-tight flex-1">{image.title}</h1>
+              <button
+                onClick={() => {
+                  // You can replace this with actual link functionality
+                  console.log('External link clicked');
+                }}
+                className="flex-shrink-0 p-3 bg-blue-100 hover:bg-blue-200 rounded-lg transition-colors group"
+                title="External Link"
+              >
+                <svg className="w-5 h-5 text-blue-600 group-hover:text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Date and Location */}
+            <div className="flex flex-wrap items-center gap-6 mb-6 pb-6 border-b border-gray-300/50">
+              <div className="flex items-center gap-2 text-gray-600">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <span className="font-medium">{formatDate(image.uploadedAt)}</span>
+              </div>
+              {image.location && (
+                <div className="flex items-center gap-2 text-gray-600">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <span className="font-medium">{image.location}</span>
+                </div>
+              )}
+            </div>
+
+            {/* Description */}
+            {image.description && (
               <div className="prose prose-lg max-w-none text-gray-700">
                 <p className="text-lg leading-relaxed">
                   {image.description}
                 </p>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </main>
     </div>
