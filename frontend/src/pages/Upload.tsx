@@ -5,6 +5,7 @@ const Upload = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('');
+  const [source, setSource] = useState('');
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [preview, setPreview] = useState<string | null>(null);
@@ -50,6 +51,7 @@ const Upload = () => {
     formData.append('title', title.trim());
     formData.append('description', description.trim());
     formData.append('location', location.trim());
+    formData.append('source', source.trim());
 
     try {
       const response = await fetch('http://localhost:8080/api/images/upload', {
@@ -200,19 +202,21 @@ const Upload = () => {
                 />
               </div>
               <div>
-                <label className="block text-sm font-bold text-gray-700 mb-3" htmlFor="keywords">
+                <label className="block text-sm font-bold text-gray-700 mb-3" htmlFor="source">
                   <span className="flex items-center gap-2">
                     <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
                     </svg>
-                    Keywords
+                    Source Link
                   </span>
                 </label>
                 <input 
                   className="w-full rounded-xl h-14 px-5 bg-gray-50/80 border-2 border-gray-200/80 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 text-gray-800 placeholder-gray-500 shadow-sm hover:border-gray-300" 
-                  id="keywords" 
-                  placeholder="Enter keywords separated by commas" 
-                  type="text"
+                  id="source" 
+                  placeholder="e.g., 'https://example.com/source'" 
+                  type="url"
+                  value={source}
+                  onChange={(e) => setSource(e.target.value)}
                 />
               </div>
             </div>

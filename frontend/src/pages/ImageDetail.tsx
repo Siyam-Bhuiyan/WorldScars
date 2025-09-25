@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 interface Image {
@@ -7,6 +7,7 @@ interface Image {
   description: string;
   imageUrl: string;
   location: string;
+  source: string;
   uploadedAt: string;
 }
 
@@ -37,6 +38,24 @@ const ImageDetail = () => {
       navigate('/');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDelete = async (id: number) => {
+    if (window.confirm('Are you sure you want to delete this image?')) {
+      try {
+        const response = await fetch(`http://localhost:8080/api/images/${id}`, {
+          method: 'DELETE',
+        });
+        if (response.ok) {
+          navigate('/');
+        } else {
+          alert('Failed to delete image');
+        }
+      } catch (error) {
+        console.error('Error deleting image:', error);
+        alert('Error deleting image');
+      }
     }
   };
 
@@ -117,6 +136,15 @@ const ImageDetail = () => {
                   <path d="M184,32H72A16,16,0,0,0,56,48V224a8,8,0,0,0,12.24,6.78L128,193.43l59.77,37.35A8,8,0,0,0,200,224V48A16,16,0,0,0,184,32Zm0,16V161.57l-51.77-32.35a8,8,0,0,0-8.48,0L72,161.56V48ZM132.23,177.22a8,8,0,0,0-8.48,0L72,209.57V180.43l56-35,56,35v29.14Z"></path>
                 </svg>
               </button>
+              <button 
+                onClick={() => handleDelete(image.id)}
+                className="p-2 rounded-full text-red-600 hover:text-red-800 hover:bg-red-200/50 transition-colors"
+                title="Delete image"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              </button>
             </div>
           </div>
         </div>
@@ -157,6 +185,21 @@ const ImageDetail = () => {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
                       <span className="font-medium">{image.location}</span>
+                    </div>
+                  )}
+                  {image.source && (
+                    <div className="flex items-center gap-2 text-gray-600">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                      </svg>
+                      <a 
+                        href={image.source} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="font-medium text-blue-600 hover:text-blue-800 transition-colors"
+                      >
+                        Source Link
+                      </a>
                     </div>
                   )}
                 </div>
