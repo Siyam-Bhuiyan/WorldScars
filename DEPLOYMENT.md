@@ -84,7 +84,7 @@ FRONTEND_URL=https://your-app-domain.com
 Railway will automatically detect your `docker-compose.yml` and create:
 
 - ✅ **PostgreSQL database** (free tier included)
-- ✅ **Backend service** (Spring Boot)
+- ✅ **Backend service** (Spring Boot - uses system Maven, no wrapper needed)
 - ✅ **Frontend service** (React + Nginx)
 
 ### Step 4: Set Environment Variables
