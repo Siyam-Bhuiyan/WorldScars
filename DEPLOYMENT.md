@@ -68,25 +68,31 @@ FRONTEND_URL=https://your-app-domain.com
 **Railway is the easiest way to deploy your Docker Compose app for FREE!**
 
 ### Step 1: Create Railway Account
+
 1. Go to [Railway](https://railway.app)
 2. Sign up with your GitHub account
 3. **Free tier includes:** 512MB RAM, 1GB disk, 1 CPU per service
 
 ### Step 2: Connect Your Repository
+
 1. Click **"New Project"** → **"Deploy from GitHub repo"**
 2. Search for and select: `Siyam-Bhuiyan/WorldScars`
 3. Click **"Deploy"**
 
 ### Step 3: Railway Auto-Detects Services
+
 Railway will automatically detect your `docker-compose.yml` and create:
+
 - ✅ **PostgreSQL database** (free tier included)
 - ✅ **Backend service** (Spring Boot)
 - ✅ **Frontend service** (React + Nginx)
 
 ### Step 4: Set Environment Variables
+
 In your Railway project dashboard:
 
 #### For Backend Service:
+
 ```
 CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
 CLOUDINARY_API_KEY=your_cloudinary_api_key
@@ -95,11 +101,13 @@ FRONTEND_URL=https://worldscars-production.up.railway.app
 ```
 
 #### For Frontend Service:
+
 ```
 VITE_API_BASE_URL=https://worldscars-backend-production.up.railway.app
 ```
 
 ### Step 5: Deploy and Get URLs
+
 1. Railway will build and deploy all services automatically
 2. **Wait 5-10 minutes** for first deployment
 3. Get your URLs from the Railway dashboard:
@@ -107,11 +115,14 @@ VITE_API_BASE_URL=https://worldscars-backend-production.up.railway.app
    - **Backend:** `https://worldscars-backend-production.up.railway.app`
 
 ### Step 6: Update CORS (if needed)
+
 If you get CORS errors:
+
 1. Go to Backend service → Variables
 2. Update `FRONTEND_URL` with your actual frontend URL from Railway
 
 ### Step 7: Test Your Deployment
+
 ```bash
 # Test backend
 curl https://your-backend-url.up.railway.app/api/test
@@ -124,14 +135,14 @@ curl https://your-backend-url.up.railway.app/api/test
 
 ## 🎯 Railway vs Other Platforms
 
-| Feature | Railway Free | Render Free | Netlify Free |
-|---------|-------------|-------------|--------------|
-| **PostgreSQL** | ✅ Included | ❌ Paid only | ❌ N/A |
-| **Docker Support** | ✅ Full | ⚠️ Limited | ❌ N/A |
-| **Auto-scaling** | ✅ Yes | ❌ No | ✅ CDN |
-| **Custom Domain** | ✅ Yes | ❌ No | ✅ Yes |
-| **Monthly Hours** | 512 hours | 750 hours | Unlimited |
-| **Setup Time** | 5 minutes | 30+ minutes | 10 minutes |
+| Feature            | Railway Free | Render Free  | Netlify Free |
+| ------------------ | ------------ | ------------ | ------------ |
+| **PostgreSQL**     | ✅ Included  | ❌ Paid only | ❌ N/A       |
+| **Docker Support** | ✅ Full      | ⚠️ Limited   | ❌ N/A       |
+| **Auto-scaling**   | ✅ Yes       | ❌ No        | ✅ CDN       |
+| **Custom Domain**  | ✅ Yes       | ❌ No        | ✅ Yes       |
+| **Monthly Hours**  | 512 hours    | 750 hours    | Unlimited    |
+| **Setup Time**     | 5 minutes    | 30+ minutes  | 10 minutes   |
 
 **Railway is perfect for your Docker setup!** 🚀
 
