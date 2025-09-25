@@ -73,11 +73,14 @@ FRONTEND_URL=https://your-app-domain.com
 2. Sign up with your GitHub account
 3. **Free tier includes:** 512MB RAM, 1GB disk, 1 CPU per service
 
+**Note:** Your repository includes a `railway.json` file that forces Railway to use your Dockerfile instead of their default Railpack builder.
+
 ### Step 2: Connect Your Repository
 
 1. Click **"New Project"** → **"Deploy from GitHub repo"**
 2. Search for and select: `Siyam-Bhuiyan/WorldScars`
-3. Click **"Deploy"**
+3. Railway will detect the `railway.json` file and automatically use your Dockerfile
+4. Click **"Deploy"**
 
 ### Step 3: Railway Auto-Detects Services
 
