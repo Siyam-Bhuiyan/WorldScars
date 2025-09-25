@@ -137,94 +137,74 @@ const ImageDetail = () => {
             <span className="text-gray-800">Historical Images</span>
           </div>
 
-          {/* Main Image Display - Full Width */}
-          <div className="mb-8">
-            <div 
-              className="w-full h-auto aspect-[16/10] bg-cover bg-center rounded-xl shadow-2xl overflow-hidden"
-              style={{ backgroundImage: `url(${image.imageUrl})` }}
-            >
-              {!imageLoaded && (
-                <div className="w-full h-full flex items-center justify-center bg-gray-100 rounded-xl">
-                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-700"></div>
-                </div>
-              )}
-              <img
-                src={image.imageUrl}
-                alt={image.title}
-                className="w-full h-full object-cover opacity-0"
-                onLoad={() => setImageLoaded(true)}
-              />
-            </div>
-          </div>
-
-          {/* Image Info Below */}
-          <div className="mb-12">
-            {/* Title with External Link */}
-            <div className="flex items-start gap-3 mb-4">
-              <h1 className="text-3xl lg:text-4xl font-bold text-gray-800 leading-tight flex-1">{image.title}</h1>
-              <button
-                onClick={() => {
-                  // You can replace this with actual link functionality
-                  console.log('External link clicked');
-                }}
-                className="p-2 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors group flex-shrink-0"
-                title="External Link"
-              >
-                <svg className="w-5 h-5 text-blue-600 group-hover:text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-              </button>
-            </div>
-
-            {/* Date and Location */}
-            <div className="flex items-center gap-6 text-gray-600 mb-6">
-              <div className="flex items-center gap-2">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                <span>{formatDate(image.uploadedAt)}</span>
+          {/* Main Image Container */}
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-12">
+            {/* Image Display - More Space */}
+            <div className="lg:col-span-3">
+              <div className="w-full bg-gray-100 rounded-xl shadow-2xl overflow-hidden">
+                {!imageLoaded && (
+                  <div className="w-full aspect-[4/3] flex items-center justify-center bg-gray-200 rounded-xl">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-700"></div>
+                  </div>
+                )}
+                <img
+                  src={image.imageUrl}
+                  alt={image.title}
+                  className="w-full h-auto object-contain max-h-[70vh] mx-auto"
+                  onLoad={() => setImageLoaded(true)}
+                />
               </div>
-              {image.location && (
-                <div className="flex items-center gap-2">
+            </div>
+
+            {/* Image Info Sidebar */}
+            <div className="lg:col-span-1 space-y-4">
+              {/* Title and Link */}
+              <div className="bg-gray-100 rounded-lg p-4">
+                <div className="flex items-start justify-between gap-2 mb-2">
+                  <h1 className="text-2xl lg:text-3xl font-bold text-gray-800 leading-tight flex-1">{image.title}</h1>
+                  <button
+                    onClick={() => {
+                      // You can replace this with actual link functionality
+                      console.log('External link clicked');
+                    }}
+                    className="flex-shrink-0 p-2 bg-blue-100 hover:bg-blue-200 rounded-lg transition-colors group"
+                    title="External Link"
+                  >
+                    <svg className="w-4 h-4 text-blue-600 group-hover:text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              {/* Date and Location */}
+              <div className="bg-gray-50 rounded-lg p-4">
+                <div className="flex items-center gap-2 text-sm text-gray-600">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
-                  <span>{image.location}</span>
+                  <span>{formatDate(image.uploadedAt)}</span>
                 </div>
-              )}
-            </div>
-
-            {/* Description */}
-            {image.description && (
-              <div className="bg-gray-50/80 rounded-lg p-6 max-w-4xl">
-                <p className="text-lg text-gray-700 leading-relaxed">
-                  {image.description}
-                </p>
+                {image.location && (
+                  <div className="flex items-center gap-2 text-sm text-gray-600 mt-2">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    <span>{image.location}</span>
+                  </div>
+                )}
               </div>
-            )}
+            </div>
           </div>
 
-          {/* Historical Context - Full Width */}
+          {/* Description - Full Width */}
           {image.description && (
-            <div className="bg-white/60 rounded-xl p-8 shadow-sm">
-              <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
-                <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>
-                Historical Context
-              </h2>
+            <div className="bg-gray-200/60 rounded-xl p-8 shadow-sm">
+              <h2 className="text-2xl font-bold text-gray-800 mb-6">Description</h2>
               <div className="prose prose-lg max-w-none text-gray-700">
                 <p className="text-lg leading-relaxed">
-                  This photograph provides valuable insight into the historical period it represents. The image captures 
-                  a moment in time that helps us understand the social, cultural, and technological context of the era. 
-                  Such historical documents are essential for preserving our collective memory and understanding the 
-                  evolution of society.
-                </p>
-                <p className="text-lg leading-relaxed mt-4">
-                  Historical images like this serve as windows into the past, allowing us to witness events, people, and places 
-                  that have shaped our world. They provide context for understanding how societies have evolved, how people lived, 
-                  and what challenges they faced. Each photograph tells a story that extends far beyond what is visible in the frame.
+                  {image.description}
                 </p>
               </div>
             </div>
