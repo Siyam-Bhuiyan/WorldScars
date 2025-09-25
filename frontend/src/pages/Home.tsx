@@ -100,7 +100,7 @@ const Home = () => {
                   className="text-base sm:text-lg md:text-xl lg:text-2xl font-light text-gray-200 mb-8 sm:mb-10 max-w-3xl mx-auto leading-relaxed"
                   style={{ textShadow: '0 2px 15px rgba(0,0,0,0.6)' }}
                 >
-                  A curated journey through the most influential visual moments in History and Art.
+                  A curated journey through the most influential visual moments in History.
                 </p>
                 <button
                   onClick={() => navigate('/gallery')}

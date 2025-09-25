@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 interface Image {
@@ -7,6 +7,7 @@ interface Image {
   description: string;
   imageUrl: string;
   location: string;
+  source: string;
   uploadedAt: string;
 }
 
@@ -28,6 +29,24 @@ const Gallery = () => {
       console.error('Error fetching images:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDelete = async (id: number) => {
+    if (window.confirm('Are you sure you want to delete this image?')) {
+      try {
+        const response = await fetch(`http://localhost:8080/api/images/${id}`, {
+          method: 'DELETE',
+        });
+        if (response.ok) {
+          setImages(images.filter(image => image.id !== id));
+        } else {
+          alert('Failed to delete image');
+        }
+      } catch (error) {
+        console.error('Error deleting image:', error);
+        alert('Error deleting image');
+      }
     }
   };
 
@@ -104,7 +123,7 @@ const Gallery = () => {
               Historical Images
             </h1>
             <p className="max-w-screen-md mx-auto text-lg text-gray-600 leading-relaxed">
-              Discover powerful moments that shaped our world through this curated collection of historical photographs and artworks.
+              Discover powerful moments that shaped our world.
             </p>
           </div>
 
@@ -117,7 +136,7 @@ const Gallery = () => {
                 </svg>
               </div>
               <h3 className="text-2xl font-bold text-gray-700 mb-3">No images yet</h3>
-              <p className="text-lg text-gray-500 mb-8 max-w-md mx-auto">Start building your collection of powerful historical moments and artworks</p>
+             
               <button
                 onClick={() => navigate('/upload')}
                 className="px-8 py-4 bg-gray-800 hover:bg-gray-700 text-gray-50 text-lg font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1"
@@ -146,7 +165,7 @@ const Gallery = () => {
                     
                     {/* Always Visible Border for White Images */}
                     <div className="absolute inset-0 border border-gray-400/20"></div>
-                    
+
                     {/* Enhanced Gradient Overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-60 group-hover:opacity-100 transition-opacity duration-300"></div>
                     
@@ -165,6 +184,24 @@ const Gallery = () => {
                               <div className="w-1.5 h-1.5 bg-blue-400 rounded-full"></div>
                               <span className="font-medium">{image.location}</span>
                             </div>
+                          )}
+                          
+                          {image.source && (
+                            <>
+                              <div className="w-px h-4 bg-white/30"></div>
+                              <a 
+                                href={image.source} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-1 hover:text-blue-300 transition-colors"
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                </svg>
+                                <span className="font-medium">Source</span>
+                              </a>
+                            </>
                           )}
                           
                           <div className="w-px h-4 bg-white/30"></div>
