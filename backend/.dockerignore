@@ -1,0 +1,9 @@
+target/
+*.log
+*.tmp
+.DS_Store
+.git/
+.gitignore
+README.md
+HELP.md
+cloudinary_image_upload.md
