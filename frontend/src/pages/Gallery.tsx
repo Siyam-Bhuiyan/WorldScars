@@ -134,9 +134,9 @@ const Gallery = () => {
                 to={`/image/${image.id}`}
                 className="group cursor-pointer block"
               >
-                <div className="relative overflow-hidden rounded-2xl bg-white shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border border-gray-100 hover:border-gray-200">
+                <div className="relative overflow-hidden rounded-2xl bg-gray-800 shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border border-gray-700 hover:border-gray-600">
                   {/* Image Container */}
-                  <div className="relative aspect-[3/4] overflow-hidden bg-gray-50">
+                  <div className="relative aspect-[3/4] overflow-hidden bg-gray-900">
                     <img 
                       alt={image.title} 
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
@@ -144,32 +144,32 @@ const Gallery = () => {
                       loading="lazy"
                     />
                     
-                    {/* Gradient Overlay on Hover */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    {/* Always Visible Border for White Images */}
+                    <div className="absolute inset-0 border border-gray-400/20"></div>
                     
-                    {/* Content Overlay */}
-                    <div className="absolute inset-0 flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
-                      <div className="text-white">
-                        <h3 className="text-xl font-bold mb-2 line-clamp-2 leading-tight drop-shadow-lg">
+                    {/* Enhanced Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-60 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    
+                    {/* Content Overlay - Only Visible on Hover */}
+                    <div className="absolute inset-0 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-all duration-500 transform scale-95 group-hover:scale-100">
+                      <div className="text-center px-4">
+                        {/* Large Title - Center focus */}
+                        <h3 className="text-3xl md:text-4xl font-black line-clamp-3 leading-tight text-white drop-shadow-2xl mb-6 tracking-wide">
                           {image.title}
                         </h3>
                         
-                        {/* Metadata */}
-                        <div className="flex items-center justify-between">
+                        {/* Minimal Metadata - Simple line */}
+                        <div className="flex items-center justify-center gap-4 text-sm text-white/80">
                           {image.location && (
-                            <div className="flex items-center gap-2 text-white/90 text-sm">
-                              <div className="w-5 h-5 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
-                                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                </svg>
-                              </div>
-                              <span className="font-medium drop-shadow">{image.location}</span>
+                            <div className="flex items-center gap-1">
+                              <div className="w-1.5 h-1.5 bg-blue-400 rounded-full"></div>
+                              <span className="font-medium">{image.location}</span>
                             </div>
                           )}
                           
-                          {/* Date Badge */}
-                          <div className="bg-white/20 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-medium text-white/90">
+                          <div className="w-px h-4 bg-white/30"></div>
+                          
+                          <div className="font-medium">
                             {new Date(image.uploadedAt).toLocaleDateString('en-US', {
                               month: 'short',
                               year: 'numeric'
@@ -179,24 +179,24 @@ const Gallery = () => {
                       </div>
                     </div>
                     
-                    {/* Top Action Button */}
-                    <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-90 group-hover:scale-100">
-                      <div className="w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white hover:scale-110 transition-all duration-200">
-                        <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    {/* Top Action Button - Better visibility */}
+                    <div className="absolute top-4 right-4 opacity-90 group-hover:opacity-100 transition-all duration-300 transform scale-90 group-hover:scale-100">
+                      <div className="w-10 h-10 bg-gray-900/80 backdrop-blur-sm rounded-full flex items-center justify-center shadow-xl hover:bg-gray-800 hover:scale-110 transition-all duration-200 border border-white/20">
+                        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                         </svg>
                       </div>
                     </div>
                     
                     {/* Loading State */}
-                    <div className="absolute inset-0 bg-gray-100 animate-pulse opacity-0 transition-opacity duration-200" style={{display: 'none'}}></div>
+                    <div className="absolute inset-0 bg-gray-800 animate-pulse opacity-0 transition-opacity duration-200" style={{display: 'none'}}></div>
                   </div>
                   
                   {/* Card Border Highlight */}
-                  <div className="absolute inset-0 rounded-2xl ring-2 ring-transparent group-hover:ring-blue-500/20 transition-all duration-300"></div>
+                  <div className="absolute inset-0 rounded-2xl ring-2 ring-transparent group-hover:ring-blue-400/40 transition-all duration-300"></div>
                   
                   {/* Bottom Gradient Reflection */}
-                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500/0 via-blue-500/50 to-blue-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-400/0 via-blue-400/60 to-blue-400/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
               </Link>
             ))}
