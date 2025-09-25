@@ -32,24 +32,6 @@ const Gallery = () => {
     }
   };
 
-  const handleDelete = async (id: number) => {
-    if (window.confirm('Are you sure you want to delete this image?')) {
-      try {
-        const response = await fetch(`http://localhost:8080/api/images/${id}`, {
-          method: 'DELETE',
-        });
-        if (response.ok) {
-          setImages(images.filter(image => image.id !== id));
-        } else {
-          alert('Failed to delete image');
-        }
-      } catch (error) {
-        console.error('Error deleting image:', error);
-        alert('Error deleting image');
-      }
-    }
-  };
-
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center worldscars-bg">
