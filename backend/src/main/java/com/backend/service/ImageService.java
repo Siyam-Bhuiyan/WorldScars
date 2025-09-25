@@ -24,4 +24,8 @@ public class ImageService {
         return repo.findById(id)
             .orElseThrow(() -> new RuntimeException("Image not found with id: " + id));
     }
+
+    public void delete(Long id) {
+        repo.deleteById(id);
+    }
 }

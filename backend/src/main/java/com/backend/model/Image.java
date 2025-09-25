@@ -19,6 +19,7 @@ public class Image {
     private String description;
     private String imageUrl;
     private String location;
+    private String source;
     
     @Column(name = "uploaded_at")
     private LocalDateTime uploadedAt;

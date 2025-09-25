@@ -31,7 +31,8 @@ public class ImageController {
             @RequestParam("file") MultipartFile file,
             @RequestParam("title") String title,
             @RequestParam("description") String description,
-            @RequestParam(value = "location", required = false) String location) {
+            @RequestParam(value = "location", required = false) String location,
+            @RequestParam(value = "source", required = false) String source) {
         
         try {
             // Upload to Cloudinary
@@ -43,6 +44,7 @@ public class ImageController {
             image.setDescription(description != null ? description : "");
             image.setImageUrl(imageUrl);
             image.setLocation(location != null ? location : "");
+            image.setSource(source != null ? source : "");
             
             Image savedImage = imageService.save(image);
             return ResponseEntity.ok(savedImage);
@@ -62,5 +64,16 @@ public class ImageController {
     @GetMapping("/{id}")
     public Image getImageById(@PathVariable Long id) {
         return imageService.getById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteImage(@PathVariable Long id) {
+        try {
+            imageService.delete(id);
+            return ResponseEntity.ok("Image deleted successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(500)
+                .body("Delete failed: " + e.getMessage());
+        }
     }
 }
