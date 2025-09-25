@@ -127,57 +127,76 @@ const Gallery = () => {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
             {images.map((image) => (
               <Link
                 key={image.id}
                 to={`/image/${image.id}`}
-                className="group cursor-pointer"
+                className="group cursor-pointer block"
               >
-                <div className="group relative overflow-hidden rounded-3xl bg-white/90 backdrop-blur-sm shadow-xl transition-all duration-500 hover:shadow-2xl hover:-translate-y-3 border border-gray-200/30 hover:border-gray-300/50">
-                  {/* Image Container with Enhanced Effects */}
-                  <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
+                <div className="relative overflow-hidden rounded-2xl bg-white shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border border-gray-100 hover:border-gray-200">
+                  {/* Image Container */}
+                  <div className="relative aspect-[3/4] overflow-hidden bg-gray-50">
                     <img 
                       alt={image.title} 
-                      className="w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-110 group-hover:brightness-105" 
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
                       src={image.imageUrl}
                       loading="lazy"
                     />
                     
-                    {/* Premium Overlay Effects */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                    {/* Gradient Overlay on Hover */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     
-                    {/* Floating Action Button */}
-                    <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                      <div className="w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-colors">
+                    {/* Content Overlay */}
+                    <div className="absolute inset-0 flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
+                      <div className="text-white">
+                        <h3 className="text-xl font-bold mb-2 line-clamp-2 leading-tight drop-shadow-lg">
+                          {image.title}
+                        </h3>
+                        
+                        {/* Metadata */}
+                        <div className="flex items-center justify-between">
+                          {image.location && (
+                            <div className="flex items-center gap-2 text-white/90 text-sm">
+                              <div className="w-5 h-5 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                              </div>
+                              <span className="font-medium drop-shadow">{image.location}</span>
+                            </div>
+                          )}
+                          
+                          {/* Date Badge */}
+                          <div className="bg-white/20 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-medium text-white/90">
+                            {new Date(image.uploadedAt).toLocaleDateString('en-US', {
+                              month: 'short',
+                              year: 'numeric'
+                            })}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Top Action Button */}
+                    <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-90 group-hover:scale-100">
+                      <div className="w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white hover:scale-110 transition-all duration-200">
                         <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                         </svg>
                       </div>
                     </div>
-
-                    {/* Enhanced Bottom Content Overlay */}
-                    <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                      <div className="text-white">
-                        <h3 className="text-lg font-bold mb-1 line-clamp-2 drop-shadow-lg">
-                          {image.title}
-                        </h3>
-                        {image.location && (
-                          <div className="flex items-center gap-1 text-white/90 text-sm">
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                            </svg>
-                            <span className="font-medium drop-shadow">{image.location}</span>
-                          </div>
-                        )}
-                      </div>
-                    </div>
+                    
+                    {/* Loading State */}
+                    <div className="absolute inset-0 bg-gray-100 animate-pulse opacity-0 transition-opacity duration-200" style={{display: 'none'}}></div>
                   </div>
                   
-                  {/* Subtle Border Glow Effect */}
-                  <div className="absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-blue-200/50 transition-all duration-500"></div>
+                  {/* Card Border Highlight */}
+                  <div className="absolute inset-0 rounded-2xl ring-2 ring-transparent group-hover:ring-blue-500/20 transition-all duration-300"></div>
+                  
+                  {/* Bottom Gradient Reflection */}
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500/0 via-blue-500/50 to-blue-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
               </Link>
             ))}
