@@ -1,0 +1,24 @@
+# Render Deployment Configuration
+services:
+  - type: web
+    name: worldscars-backend
+    runtime: java
+    buildCommand: "./mvnw clean package -DskipTests"
+    startCommand: "java -jar target/backend-0.0.1-SNAPSHOT.jar"
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: production
+      - key: SPRING_DATASOURCE_URL
+        fromSecret: DATABASE_URL
+      - key: SPRING_DATASOURCE_USERNAME
+        fromSecret: DATABASE_USERNAME
+      - key: SPRING_DATASOURCE_PASSWORD
+        fromSecret: DATABASE_PASSWORD
+      - key: SPRING_JPA_HIBERNATE_DDL_AUTO
+        value: update
+      - key: CLOUDINARY_CLOUD_NAME
+        fromSecret: CLOUDINARY_CLOUD_NAME
+      - key: CLOUDINARY_API_KEY
+        fromSecret: CLOUDINARY_API_KEY
+      - key: CLOUDINARY_API_SECRET
+        fromSecret: CLOUDINARY_API_SECRET
