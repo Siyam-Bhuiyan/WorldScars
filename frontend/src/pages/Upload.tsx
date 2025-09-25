@@ -122,17 +122,33 @@ const Upload = () => {
       {/* Main Content */}
       <main className="flex-grow w-screen min-h-screen py-8">
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
-          <div className="mb-8">
-            <h2 className="text-4xl font-bold tracking-tight">Upload New Historical Image</h2>
-            <p className="mt-2 text-slate-500">Fill in the details below to add a new image to the archive.</p>
+          <div className="mb-12 text-center">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl mb-6 shadow-lg">
+              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+              </svg>
+            </div>
+            <h2 className="text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent mb-4">
+              Upload New Historical Image
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+              Share a powerful moment in history. Fill in the details below to add your image to our curated collection.
+            </p>
           </div>
           
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-8 bg-white/80 backdrop-blur-sm rounded-3xl p-8 lg:p-10 shadow-2xl border border-gray-200/50">
             {/* Title */}
             <div>
-              <label className="block text-sm font-medium mb-1" htmlFor="title">Title</label>
+              <label className="block text-sm font-bold text-gray-700 mb-3" htmlFor="title">
+                <span className="flex items-center gap-2">
+                  <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                  </svg>
+                  Title
+                </span>
+              </label>
               <input 
-                className="w-full rounded-lg h-12 px-4 bg-transparent border border-slate-300 focus:outline-none focus:ring-1 focus:ring-[#1791cf] focus:border-[#1791cf] transition-colors" 
+                className="w-full rounded-xl h-14 px-5 bg-gray-50/80 border-2 border-gray-200/80 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 text-gray-800 placeholder-gray-500 shadow-sm hover:border-gray-300" 
                 id="title" 
                 placeholder="e.g., 'Construction of the Golden Gate Bridge'" 
                 type="text"
@@ -144,24 +160,39 @@ const Upload = () => {
 
             {/* Description */}
             <div>
-              <label className="block text-sm font-medium mb-1" htmlFor="description">Detailed Description</label>
+              <label className="block text-sm font-bold text-gray-700 mb-3" htmlFor="description">
+                <span className="flex items-center gap-2">
+                  <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  Description
+                </span>
+              </label>
               <textarea 
-                className="w-full rounded-lg min-h-36 p-4 bg-transparent border border-slate-300 focus:outline-none focus:ring-1 focus:ring-[#1791cf] focus:border-[#1791cf] transition-colors resize-none" 
+                className="w-full rounded-xl min-h-40 p-5 bg-gray-50/80 border-2 border-gray-200/80 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 resize-none text-gray-800 placeholder-gray-500 shadow-sm hover:border-gray-300" 
                 id="description" 
-                placeholder="Provide a detailed description of the image's context, significance, and any notable features." 
-                rows={4}
+                placeholder="Provide a detailed description of the image's historical context, significance, and any notable features that make this moment important." 
+                rows={5}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
             </div>
 
-            {/* Date and Keywords Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Location and Keywords Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
-                <label className="block text-sm font-medium mb-1" htmlFor="date">Location</label>
+                <label className="block text-sm font-bold text-gray-700 mb-3" htmlFor="location">
+                  <span className="flex items-center gap-2">
+                    <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    Location
+                  </span>
+                </label>
                 <input 
-                  className="w-full rounded-lg h-12 px-4 bg-transparent border border-slate-300 focus:outline-none focus:ring-1 focus:ring-[#1791cf] focus:border-[#1791cf] transition-colors" 
-                  id="date" 
+                  className="w-full rounded-xl h-14 px-5 bg-gray-50/80 border-2 border-gray-200/80 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 text-gray-800 placeholder-gray-500 shadow-sm hover:border-gray-300" 
+                  id="location" 
                   placeholder="e.g., 'New York, USA'" 
                   type="text"
                   value={location}
@@ -169,9 +200,16 @@ const Upload = () => {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1" htmlFor="keywords">Keywords</label>
+                <label className="block text-sm font-bold text-gray-700 mb-3" htmlFor="keywords">
+                  <span className="flex items-center gap-2">
+                    <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                    </svg>
+                    Keywords
+                  </span>
+                </label>
                 <input 
-                  className="w-full rounded-lg h-12 px-4 bg-transparent border border-slate-300 focus:outline-none focus:ring-1 focus:ring-[#1791cf] focus:border-[#1791cf] transition-colors" 
+                  className="w-full rounded-xl h-14 px-5 bg-gray-50/80 border-2 border-gray-200/80 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 text-gray-800 placeholder-gray-500 shadow-sm hover:border-gray-300" 
                   id="keywords" 
                   placeholder="Enter keywords separated by commas" 
                   type="text"
@@ -181,49 +219,71 @@ const Upload = () => {
 
             {/* File Upload */}
             <div>
-              <label className="block text-sm font-medium mb-1">Image File</label>
+              <label className="block text-sm font-bold text-gray-700 mb-3">
+                <span className="flex items-center gap-2">
+                  <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  Image File
+                </span>
+              </label>
               <div 
-                className={`mt-1 flex justify-center px-6 pt-10 pb-12 border-2 border-dashed rounded-xl transition-all duration-300 ${
+                className={`mt-3 flex justify-center px-8 pt-12 pb-14 border-3 border-dashed rounded-2xl transition-all duration-300 shadow-inner ${
                   dragActive 
-                    ? 'border-[#1791cf] bg-[#1791cf]/5' 
-                    : 'border-slate-300 hover:border-slate-400'
+                    ? 'border-blue-500 bg-blue-50/50 scale-[1.02]' 
+                    : 'border-gray-300 hover:border-blue-400 hover:bg-blue-50/20 bg-gray-50/30'
                 }`}
                 onDragEnter={handleDrag}
                 onDragLeave={handleDrag}
                 onDragOver={handleDrag}
                 onDrop={handleDrop}
               >
-                <div className="space-y-2 text-center">
+                <div className="space-y-4 text-center">
                   {preview ? (
-                    <div className="space-y-4">
-                      <img 
-                        src={preview} 
-                        alt="Preview" 
-                        className="max-w-full h-48 object-cover rounded-lg mx-auto"
-                      />
-                      <p className="text-sm text-slate-500">Click or drag to change image</p>
+                    <div className="space-y-6">
+                      <div className="relative">
+                        <img 
+                          src={preview} 
+                          alt="Preview" 
+                          className="max-w-full h-64 object-cover rounded-xl mx-auto shadow-lg border-2 border-white"
+                        />
+                        <div className="absolute -top-2 -right-2 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center shadow-lg">
+                          <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <p className="text-sm font-medium text-gray-700">Image ready for upload!</p>
+                        <p className="text-xs text-gray-500">Click or drag to change image</p>
+                      </div>
                     </div>
                   ) : (
                     <>
-                      <svg className="mx-auto h-12 w-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                      </svg>
-                      <div className="flex text-sm text-slate-600">
-                        <label className="relative cursor-pointer rounded-md font-medium text-[#1791cf] hover:text-[#1791cf]/80 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-[#1791cf]" htmlFor="file-upload">
-                          <span>Upload a file</span>
-                          <input 
-                            className="sr-only" 
-                            id="file-upload" 
-                            name="file-upload" 
-                            type="file"
-                            accept="image/*"
-                            onChange={(e) => e.target.files?.[0] && handleFileChange(e.target.files[0])}
-                            required
-                          />
-                        </label>
-                        <p className="pl-1">or drag and drop</p>
+                      <div className="mx-auto w-16 h-16 bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl flex items-center justify-center mb-4">
+                        <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                        </svg>
                       </div>
-                      <p className="text-xs text-slate-500">PNG, JPG, GIF up to 10MB</p>
+                      <div className="space-y-2">
+                        <div className="flex justify-center text-base text-gray-700">
+                          <label className="relative cursor-pointer rounded-xl font-bold text-blue-600 hover:text-blue-700 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500 transition-colors" htmlFor="file-upload">
+                            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Choose a file</span>
+                            <input 
+                              className="sr-only" 
+                              id="file-upload" 
+                              name="file-upload" 
+                              type="file"
+                              accept="image/*"
+                              onChange={(e) => e.target.files?.[0] && handleFileChange(e.target.files[0])}
+                              required
+                            />
+                          </label>
+                          <p className="pl-2 text-gray-600">or drag and drop</p>
+                        </div>
+                        <p className="text-sm text-gray-500 font-medium">PNG, JPG, GIF up to 10MB</p>
+                        <p className="text-xs text-gray-400">High resolution images recommended</p>
+                      </div>
                     </>
                   )}
                 </div>
@@ -231,20 +291,28 @@ const Upload = () => {
             </div>
 
             {/* Submit Button */}
-            <div className="flex justify-end pt-4">
+            <div className="flex justify-center pt-8">
               <button 
-                className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-[#1791cf] hover:bg-[#1791cf]/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1791cf] transition-colors disabled:opacity-50 disabled:cursor-not-allowed" 
+                className="group relative inline-flex items-center justify-center px-10 py-4 border border-transparent text-lg font-bold rounded-2xl text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-4 focus:ring-blue-500/25 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-xl hover:shadow-2xl transform hover:scale-105 hover:-translate-y-1" 
                 type="submit"
                 disabled={loading || !file || !title.trim()}
               >
                 {loading ? (
                   <>
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                    Uploading...
+                    <div className="animate-spin rounded-full h-6 w-6 border-2 border-white border-t-transparent mr-3"></div>
+                    <span>Uploading to Collection...</span>
                   </>
                 ) : (
-                  'Upload Image'
+                  <>
+                    <svg className="w-5 h-5 mr-3 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                    </svg>
+                    <span>Add to Historical Collection</span>
+                  </>
                 )}
+                
+                {/* Button Glow Effect */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-xl"></div>
               </button>
             </div>
           </form>

@@ -127,32 +127,57 @@ const Gallery = () => {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
             {images.map((image) => (
               <Link
                 key={image.id}
                 to={`/image/${image.id}`}
                 className="group cursor-pointer"
               >
-                <div className="group relative overflow-hidden rounded-2xl bg-gray-50/80 shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border border-gray-200/50 hover:border-gray-300/70">
-                  {/* Square Image Container */}
-                  <div className="aspect-square overflow-hidden bg-gray-100/80">
+                <div className="group relative overflow-hidden rounded-3xl bg-white/90 backdrop-blur-sm shadow-xl transition-all duration-500 hover:shadow-2xl hover:-translate-y-3 border border-gray-200/30 hover:border-gray-300/50">
+                  {/* Image Container with Enhanced Effects */}
+                  <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
                     <img 
                       alt={image.title} 
-                      className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" 
+                      className="w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-110 group-hover:brightness-105" 
                       src={image.imageUrl}
                       loading="lazy"
                     />
-                    {/* Overlay gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-stone-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    
+                    {/* Premium Overlay Effects */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                    
+                    {/* Floating Action Button */}
+                    <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                      <div className="w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-colors">
+                        <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                      </div>
+                    </div>
+
+                    {/* Enhanced Bottom Content Overlay */}
+                    <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                      <div className="text-white">
+                        <h3 className="text-lg font-bold mb-1 line-clamp-2 drop-shadow-lg">
+                          {image.title}
+                        </h3>
+                        {image.location && (
+                          <div className="flex items-center gap-1 text-white/90 text-sm">
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <span className="font-medium drop-shadow">{image.location}</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
                   </div>
                   
-                  {/* Card Content */}
-                  <div className="p-5">
-                    <h3 className="text-lg font-semibold text-stone-800 mb-2 line-clamp-2 group-hover:text-stone-600 transition-colors">
-                      {image.title}
-                    </h3>
-                  </div>
+                  {/* Subtle Border Glow Effect */}
+                  <div className="absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-blue-200/50 transition-all duration-500"></div>
                 </div>
               </Link>
             ))}
