@@ -74,6 +74,7 @@ FRONTEND_URL=https://your-app-domain.com
 3. **Free tier includes:** 512MB RAM, 1GB disk, 1 CPU per service
 
 **Note:** Your repository includes multiple `railway.json` files:
+
 - Root: Forces Railway to use Docker instead of Railpack
 - `backend/railway.json`: Configures backend service deployment
 - `frontend/railway.json`: Configures frontend service deployment
