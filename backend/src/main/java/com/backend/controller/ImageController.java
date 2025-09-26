@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/images")
-@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:3000", "http://frontend:80"})
+@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:3000", "http://frontend:80", "https://worldscars-production.up.railway.app"})
 @RequiredArgsConstructor
 public class ImageController {
 
