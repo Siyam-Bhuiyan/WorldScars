@@ -54,7 +54,7 @@ const Upload = () => {
     formData.append('source', source.trim());
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/images/upload`, {
+      const response = await fetch(`https://worldscars-backend-production.up.railway.app/api/images/upload`, {
         method: 'POST',
         body: formData,
       });

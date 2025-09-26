@@ -22,7 +22,7 @@ const Gallery = () => {
 
   const fetchImages = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/images`);
+      const response = await fetch(`https://worldscars-backend-production.up.railway.app/api/images`);
       const data = await response.json();
       setImages(data);
     } catch (error) {

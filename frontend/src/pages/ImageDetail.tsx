@@ -26,7 +26,7 @@ const ImageDetail = () => {
 
   const fetchImage = async (imageId: number) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/images/${imageId}`);
+      const response = await fetch(`https://worldscars-backend-production.up.railway.app/api/images/${imageId}`);
       if (response.ok) {
         const data = await response.json();
         setImage(data);
@@ -44,7 +44,7 @@ const ImageDetail = () => {
   const handleDelete = async (id: number) => {
     if (window.confirm('Are you sure you want to delete this image?')) {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/images/${id}`, {
+        const response = await fetch(`https://worldscars-backend-production.up.railway.app/api/images/${id}`, {
           method: 'DELETE',
         });
         if (response.ok) {
