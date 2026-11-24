@@ -1,5 +1,20 @@
 # WorldScars
 
+<p align="center">
+  <a href="https://worldscars-archive.netlify.app">
+    <img src="docs/screenshot.jpg" alt="WorldScars: The world watched." width="100%">
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://worldscars-archive.netlify.app"><b>▶ &nbsp;LIVE SITE: worldscars-archive.netlify.app</b></a>
+</p>
+
+<p align="center">
+  <a href="https://worldscars-archive.netlify.app"><img alt="Live" src="https://img.shields.io/badge/LIVE-open%20the%20archive-c0160f?style=for-the-badge"></a>
+  <a href="https://worldscars-backend.onrender.com/api/health"><img alt="API" src="https://img.shields.io/badge/API-Render-0a0a09?style=for-the-badge"></a>
+</p>
+
 **The world watched. Then it scrolled past.**
 
 WorldScars is an archive of the images the world saw for a moment and forgot: earthquakes, wars, camps, the people inside them. Every image is filed as an *exhibit* with a location, a source and a testimony, so it can't be quietly lost.
