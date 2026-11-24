@@ -1,403 +1,104 @@
-# WorldScars 🌍
+# WorldScars
 
-A powerful web application that preserves and shares historical images, documenting the scars of our world through visual storytelling.
+**The world watched. Then it scrolled past.**
 
-## 📋 Table of Contents
+WorldScars is an archive of the images the world saw for a moment and forgot: earthquakes, wars, camps, the people inside them. Every image is filed as an *exhibit* with a location, a source and a testimony, so it can't be quietly lost.
 
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Live Demo](#live-demo)
-- [Prerequisites](#prerequisites)
-- [Local Development](#local-development)
-- [Deployment](#deployment)
-- [API Documentation](#api-documentation)
-- [Environment Variables](#environment-variables)
-- [Database Schema](#database-schema)
-- [Troubleshooting](#troubleshooting)
-- [Contributing](#contributing)
-- [License](#license)
+The interface is designed as a raw evidence archive: black and bone-white, one blood-red accent, film grain, torn case files and redaction bars. Images in the archive stay grey until you look closer. On an exhibit page the photo is veiled until you choose to **look anyway**.
 
-## ✨ Features
+## Stack
 
-- 📸 **Image Upload**: Upload historical images with metadata
-- 🖼️ **Gallery View**: Beautiful responsive gallery with hover effects
-- 🔍 **Image Details**: Detailed view with full metadata and source links
-- 🗑️ **Delete Functionality**: Remove images with confirmation
-- 🔗 **Source Links**: Attach source URLs to images
-- 📱 **Responsive Design**: Works on all devices
-- 🚀 **Production Ready**: Optimized for deployment
+| Layer    | Tech |
+| -------- | ---- |
+| Frontend | React 19, TypeScript, Vite 7, Tailwind CSS 3, React Router 7, served by nginx |
+| Backend  | Spring Boot 3.5 (Java 17), Spring Data JPA, PostgreSQL |
+| Images   | Cloudinary (stored in the `worldscars/` folder, resized on the fly) |
+| Deploy   | Docker; Railway (backend from the root `Dockerfile`, frontend from `frontend/Dockerfile`) |
 
-## 🛠️ Tech Stack
+## Pages
 
-### Frontend
+| Route          | Page |
+| -------------- | ---- |
+| `/`            | Hero ("The world watched."), visitor protocol, latest entries |
+| `/archive`     | Searchable, paginated archive of exhibits |
+| `/exhibit/:id` | Dossier: veiled image, case file, testimony, expunge control |
+| `/file`        | Exhibit intake form (needs the clearance key) |
 
-- **React 18** - Modern React with hooks
-- **TypeScript** - Type-safe development
-- **Vite** - Fast build tool and dev server
-- **Tailwind CSS** - Utility-first CSS framework
-- **React Router** - Client-side routing
-- **Netlify** - Frontend hosting
+Old links (`/gallery`, `/upload`, `/image/:id`) redirect to the new routes.
 
-### Backend
+## Running locally
 
-- **Spring Boot 3** - Java web framework
-- **Spring Data JPA** - Database access
-- **PostgreSQL** - Production database
-- **Cloudinary** - Image storage and optimization
-- **Render** - Backend hosting
-
-### DevOps
-
-- **Docker** - Containerization
-- **Docker Compose** - Local development
-- **Maven** - Java dependency management
-
-## 🌐 Live Demo
-
-- **Frontend**: [https://worldscars.netlify.app](https://worldscars.netlify.app)
-- **Backend API**: [https://worldscars-backend.onrender.com](https://worldscars-backend.onrender.com)
-- **Database**: PostgreSQL on Render
-
-## 📋 Prerequisites
-
-- **Node.js** 18+ and npm
-- **Java** 17+ and Maven
-- **Docker** and Docker Compose
-- **Git**
-- **Cloudinary** account (for image storage)
-
-## 🚀 Local Development
-
-### 1. Clone the Repository
+### With Docker (everything)
 
 ```bash
-git clone https://github.com/Siyam-Bhuiyan/WorldScars.git
-cd WorldScars
+cp .env.example .env      # fill in Cloudinary keys + ADMIN_TOKEN
+docker compose up --build
 ```
 
-### 2. Environment Setup
+- Frontend: http://localhost:3000
+- API: http://localhost:8080/api/health
 
-#### Backend Environment Variables
+### Without Docker
 
-Create `.env` file in the root directory:
-
-```env
-# Database
-POSTGRES_DB=worldscars
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres
-
-# Application
-SPRING_PROFILES_ACTIVE=docker
-
-# Cloudinary (get from https://cloudinary.com)
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
-```
-
-#### Frontend Environment Variables
-
-Create `.env.local` in `frontend/` directory:
-
-```env
-VITE_API_BASE_URL=http://localhost:8080
-```
-
-### 3. Start with Docker (Recommended)
-
-```bash
-# Start all services
-docker-compose up --build
-
-# Or start individual services
-docker-compose up db          # Database only
-docker-compose up backend     # Backend only
-docker-compose up frontend    # Frontend only
-```
-
-### 4. Manual Setup (Alternative)
-
-#### Backend Setup
+Backend (needs a Postgres database):
 
 ```bash
 cd backend
-./mvnw clean install
+export DATABASE_URL=jdbc:postgresql://localhost:5432/worldscars
+export DATABASE_USERNAME=postgres DATABASE_PASSWORD=postgres
+export CLOUDINARY_CLOUD_NAME=... CLOUDINARY_API_KEY=... CLOUDINARY_API_SECRET=...
+export ADMIN_TOKEN=some-long-random-string
 ./mvnw spring-boot:run
 ```
 
-#### Frontend Setup
+Frontend:
 
 ```bash
 cd frontend
+echo "VITE_API_BASE_URL=http://localhost:8080" > .env.local
 npm install
-npm run dev
+npm run dev               # http://localhost:5173
 ```
 
-### 5. Access the Application
+Tests: `cd backend && ./mvnw test` (uses an in-memory H2 database and a mocked Cloudinary).
 
-- **Frontend**: http://localhost:3000
-- **Backend API**: http://localhost:8080
-- **Database**: localhost:5432
+## Environment variables
 
-## 🚀 Deployment
+### Backend
 
-### Frontend Deployment (Netlify)
+| Variable | Required | Purpose |
+| -------- | -------- | ------- |
+| `DATABASE_URL` | yes | JDBC URL, e.g. `jdbc:postgresql://host:5432/db` |
+| `DATABASE_USERNAME` / `DATABASE_PASSWORD` | yes | Database credentials |
+| `CLOUDINARY_CLOUD_NAME` / `CLOUDINARY_API_KEY` / `CLOUDINARY_API_SECRET` | yes | Image storage. **Never commit these.** |
+| `ADMIN_TOKEN` | for writes | Clearance key for uploading and deleting. If unset, all writes are refused. |
+| `FRONTEND_URL` | no | Extra CORS origin(s), comma separated. localhost and the Railway frontend are always allowed. |
+| `PORT` | no | Defaults to 8080 |
 
-#### Option 1: Git Integration (Recommended)
+### Frontend (build time)
 
-1. **Connect Repository**:
+| Variable | Purpose |
+| -------- | ------- |
+| `VITE_API_BASE_URL` | Backend base URL. Vite bakes it in at **build** time (Docker build arg / Railway variable). Defaults to the production Railway backend. |
 
-   - Go to [Netlify](https://netlify.com)
-   - Click "New site from Git"
-   - Connect your GitHub repository
+## API
 
-2. **Build Settings**:
+Errors are always `{"error": "message"}` with a meaningful status (400, 401, 404, 413, 500).
 
-   ```
-   Base directory: frontend
-   Build command: npm run build
-   Publish directory: frontend/dist
-   ```
+| Method | Path | Auth | Notes |
+| ------ | ---- | ---- | ----- |
+| GET | `/api/health` | – | `{"status":"ok"}` |
+| GET | `/api/images?q=&page=0&size=24` | – | Newest first. Returns `{items, page, size, totalItems, totalPages, last}`. `q` searches title, location and description. |
+| GET | `/api/images/{id}` | – | 404 if missing |
+| POST | `/api/images/upload` | `X-Admin-Token` | multipart: `file` (JPEG/PNG/WebP/GIF/AVIF, ≤10 MB), `title`, `description?`, `location?`, `source?` (http/https only) → 201 |
+| DELETE | `/api/images/{id}` | `X-Admin-Token` | Deletes the record **and** the Cloudinary file |
 
-3. **Environment Variables**:
+## Data model
 
-   ```
-   VITE_API_BASE_URL=https://worldscars-backend.onrender.com
-   ```
+`images`: `id`, `title`, `description`, `image_url`, `public_id` (Cloudinary id, new), `location`, `source`, `uploaded_at`. The schema updates itself (`ddl-auto=update`). Records filed before `public_id` existed still clean up correctly, because the id is derived from their URL.
 
-4. **Deploy**: Push to main branch or click "Deploy site"
+## Deploying on Railway
 
-#### Option 2: Manual Deploy
-
-```bash
-cd frontend
-npm run build
-# Drag and drop the 'dist' folder to Netlify
-```
-
-### Backend Deployment (Render)
-
-#### 1. Create PostgreSQL Database
-
-1. Go to [Render Dashboard](https://dashboard.render.com)
-2. Click "New +" → "PostgreSQL"
-3. Configure:
-   - **Name**: `worldscars-db`
-   - **Database**: `worldscars`
-   - **Username**: `postgres`
-4. **Copy the connection string**
-
-#### 2. Set Up Secrets
-
-Go to Render Dashboard → Settings → Secrets, add:
-
-```env
-DATABASE_URL=postgresql://postgres:[password]@[host]:5432/worldscars
-DATABASE_USERNAME=postgres
-DATABASE_PASSWORD=[your-db-password]
-CLOUDINARY_CLOUD_NAME=[your-cloudinary-cloud-name]
-CLOUDINARY_API_KEY=[your-cloudinary-api-key]
-CLOUDINARY_API_SECRET=[your-cloudinary-api-secret]
-FRONTEND_URL=https://worldscars.netlify.app
-```
-
-#### 3. Deploy Backend
-
-1. Click "New +" → "Web Service"
-2. Connect your GitHub repository
-3. Configure:
-   - **Name**: `worldscars-backend`
-   - **Runtime**: `Java`
-   - **Build Command**: `./mvnw clean package -DskipTests`
-   - **Start Command**: `java -jar target/backend-0.0.1-SNAPSHOT.jar`
-4. **Environment**: Add all secrets
-5. **Deploy**
-
-### Database Deployment (Render PostgreSQL)
-
-Already covered in Backend deployment step 1. Your database will be:
-
-- **Host**: `[your-db-host].render.com`
-- **Port**: `5432`
-- **Database**: `worldscars`
-- **Username**: `postgres`
-
-## 📚 API Documentation
-
-### Base URL
-
-```
-Production: https://worldscars-backend.onrender.com
-Local: http://localhost:8080
-```
-
-### Endpoints
-
-#### GET /api/images
-
-Get all images
-
-```bash
-curl https://worldscars-backend.onrender.com/api/images
-```
-
-#### GET /api/images/{id}
-
-Get image by ID
-
-```bash
-curl https://worldscars-backend.onrender.com/api/images/1
-```
-
-#### POST /api/images/upload
-
-Upload new image
-
-```bash
-curl -X POST https://worldscars-backend.onrender.com/api/images/upload \
-  -F "file=@image.jpg" \
-  -F "title=Historical Event" \
-  -F "description=Description here" \
-  -F "location=Location" \
-  -F "source=https://source-url.com"
-```
-
-#### DELETE /api/images/{id}
-
-Delete image by ID
-
-```bash
-curl -X DELETE https://worldscars-backend.onrender.com/api/images/1
-```
-
-#### GET /api/test
-
-Health check
-
-```bash
-curl https://worldscars-backend.onrender.com/api/test
-```
-
-## 🔧 Environment Variables
-
-### Frontend (.env.local)
-
-```env
-VITE_API_BASE_URL=http://localhost:8080  # Local development
-VITE_API_BASE_URL=https://worldscars-backend.onrender.com  # Production
-```
-
-### Backend (.env)
-
-```env
-# Database
-POSTGRES_DB=worldscars
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres
-
-# Application
-SPRING_PROFILES_ACTIVE=docker
-
-# Cloudinary
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
-
-# Production (Render)
-DATABASE_URL=postgresql://...
-DATABASE_USERNAME=postgres
-DATABASE_PASSWORD=your_password
-FRONTEND_URL=https://worldscars.netlify.app
-```
-
-## 🗄️ Database Schema
-
-```sql
-CREATE TABLE images (
-    id BIGSERIAL PRIMARY KEY,
-    title VARCHAR(500) NOT NULL,
-    description VARCHAR(2000),
-    image_url VARCHAR(1000) NOT NULL,
-    location VARCHAR(300),
-    source VARCHAR(1000),
-    uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-```
-
-## 🔧 Troubleshooting
-
-### Common Issues
-
-#### 1. CORS Errors
-
-- **Local**: Check `@CrossOrigin` annotation in `ImageController.java`
-- **Production**: Verify `FRONTEND_URL` environment variable
-
-#### 2. Database Connection
-
-- **Local**: Ensure PostgreSQL container is running
-- **Production**: Check Render database credentials
-
-#### 3. Image Upload Issues
-
-- Check Cloudinary credentials
-- Verify file size limits
-- Check network connectivity
-
-#### 4. Build Failures
-
-```bash
-# Clear Docker cache
-docker system prune -f
-docker-compose build --no-cache
-
-# Clear npm cache
-cd frontend && npm cache clean --force
-```
-
-#### 5. Port Conflicts
-
-- Change ports in `docker-compose.yml` if needed
-- Update frontend API calls accordingly
-
-### Logs
-
-```bash
-# Docker logs
-docker-compose logs backend
-docker-compose logs frontend
-docker-compose logs db
-
-# Application logs (in production)
-# Check Render dashboard for logs
-```
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature-name`
-3. Commit changes: `git commit -m 'Add feature'`
-4. Push to branch: `git push origin feature-name`
-5. Open a Pull Request
-
-### Development Guidelines
-
-- Use TypeScript for frontend code
-- Follow Spring Boot best practices
-- Write descriptive commit messages
-- Test locally before pushing
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- Images stored on [Cloudinary](https://cloudinary.com)
-- Hosted on [Netlify](https://netlify.com) and [Render](https://render.com)
-- Built with [React](https://reactjs.org) and [Spring Boot](https://spring.io/projects/spring-boot)
-
----
-
-**Made with ❤️ for preserving history through visual storytelling**
+1. **Backend service** (repo root, uses `Dockerfile` + `railway.json`): set the backend variables above. Health check path: `/api/health`.
+2. **Frontend service** (root directory `frontend`): optionally set `VITE_API_BASE_URL` to the backend URL.
+3. Pick a long random `ADMIN_TOKEN`. You'll type it once in the intake form, and it's remembered on that device.
