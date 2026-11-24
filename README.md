@@ -97,8 +97,8 @@ Errors are always `{"error": "message"}` with a meaningful status (400, 401, 404
 
 `images`: `id`, `title`, `description`, `image_url`, `public_id` (Cloudinary id, new), `location`, `source`, `uploaded_at`. The schema updates itself (`ddl-auto=update`). Records filed before `public_id` existed still clean up correctly, because the id is derived from their URL.
 
-## Deploying on Railway
+## Deploying (Netlify + Render + Neon)
 
-1. **Backend service** (repo root, uses `Dockerfile` + `railway.json`): set the backend variables above. Health check path: `/api/health`.
-2. **Frontend service** (root directory `frontend`): optionally set `VITE_API_BASE_URL` to the backend URL.
-3. Pick a long random `ADMIN_TOKEN`. You'll type it once in the intake form, and it's remembered on that device.
+1. **Database (Neon):** create a project and copy the connection string (`postgresql://user:pass@host/db?sslmode=require`). The backend accepts that format directly as `DATABASE_URL`.
+2. **Backend (Render):** New → Blueprint → pick this repo (uses `render.yaml`), then fill in `DATABASE_URL`, `CLOUDINARY_*`, `ADMIN_TOKEN`. Leave `FRONTEND_URL` until step 3. The free plan sleeps when idle, so the first request after a pause is slow.
+3. **Frontend (Netlify):** import the repo (settings come from `netlify.toml`) and set `VITE_API_BASE_URL` to the Render URL. Then put the Netlify URL into the backend's `FRONTEND_URL` on Render.
