@@ -1,73 +1,157 @@
-import { useNavigate } from 'react-router-dom';
-// Import local assets
-import image1 from '../assets/big-dust-cloud-marrakesh-city-after-earthquake.jpg';
-import image2 from '../assets/photorealistic-refugee-camp.jpg';
-import image3 from '../assets/photorealistic-kid-refugee-camp.jpg';
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import Layout from "../components/Layout";
+import ExhibitCard from "../components/ExhibitCard";
+import Redacted from "../components/Redacted";
+import Ticker from "../components/Ticker";
+import { listExhibits } from "../lib/api";
+import type { Exhibit } from "../lib/types";
+import marrakesh from "../assets/hero/marrakesh.jpg";
+import camp from "../assets/hero/camp.jpg";
+import child from "../assets/hero/child.jpg";
 
+const SLIDES = [
+  { src: marrakesh, place: "Marrakesh, Morocco", when: "09.2023", note: "Dust where homes stood." },
+  { src: camp, place: "Refugee camp", when: "Ongoing", note: "Tents are not homes." },
+  { src: child, place: "Refugee camp", when: "Ongoing", note: "Name unknown." },
+];
 
-const Home = () => {
-  const navigate = useNavigate();
+export default function Home() {
+  const [slide, setSlide] = useState(0);
+  const [recent, setRecent] = useState<Exhibit[]>([]);
+  const [total, setTotal] = useState<number | null>(null);
+
+  useEffect(() => {
+    const t = window.setInterval(() => setSlide((s) => (s + 1) % SLIDES.length), 7000);
+    return () => window.clearInterval(t);
+  }, []);
+
+  useEffect(() => {
+    let alive = true;
+    listExhibits({ size: 3 })
+      .then((p) => {
+        if (!alive) return;
+        setRecent(p.items);
+        setTotal(p.totalItems);
+      })
+      .catch(() => {
+        /* home still works without the archive */
+      });
+    return () => {
+      alive = false;
+    };
+  }, []);
+
+  const current = SLIDES[slide];
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden">
-      
+    <Layout bleed>
+      {/* ---------- HERO ---------- */}
+      <section className="relative h-[100svh] min-h-[620px] overflow-hidden" aria-label="Introduction">
+        {SLIDES.map((s, i) => (
+          <img
+            key={s.src}
+            src={s.src}
+            alt=""
+            aria-hidden="true"
+            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-[1800ms] ${
+              i === slide ? "flicker opacity-100" : "opacity-0"
+            }`}
+            style={{ filter: "grayscale(1) contrast(1.25) brightness(0.55)" }}
+          />
+        ))}
+        {/* vignette + bottom fade */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(10,10,9,0.85)_100%)]" />
+        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-ink via-ink/70 to-transparent" />
 
-      {/* Main Hero Section */}
-      <main className="absolute inset-0 w-screen h-screen">
-        <div className="relative w-full h-full">
-          {/* Animated Background Images using local assets */}
-          <div 
-            className="absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-in-out opacity-0 animate-fade-in"
-            style={{
-              backgroundImage: `linear-gradient(to top, rgba(18, 18, 18, 0.8) 0%, rgba(18, 18, 18, 0.3) 40%, rgba(18, 18, 18, 0) 70%), url("${image1}")`,
-              animationDelay: '0s'
-            }}
-          ></div>
-          <div 
-            className="absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-in-out opacity-0 animate-fade-in"
-            style={{
-              backgroundImage: `linear-gradient(to top, rgba(18, 18, 18, 0.8) 0%, rgba(18, 18, 18, 0.3) 40%, rgba(18, 18, 18, 0) 70%), url("${image2}")`,
-              animationDelay: '5s'
-            }}
-          ></div>
-          <div 
-            className="absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-in-out opacity-0 animate-fade-in"
-            style={{
-              backgroundImage: `linear-gradient(to top, rgba(18, 18, 18, 0.8) 0%, rgba(18, 18, 18, 0.3) 40%, rgba(18, 18, 18, 0) 70%), url("${image3}")`,
-              animationDelay: '10s'
-            }}
-          ></div>
+        <div className="relative z-10 mx-auto flex h-full max-w-[1600px] flex-col justify-end px-4 pb-14 sm:px-8 sm:pb-20">
+          <p className="label rise mb-6 !text-bone">
+            <span className="mr-3 inline-block h-2 w-2 animate-pulse bg-blood align-middle" />
+            Exhibit in view · {current.place} · {current.when}
+          </p>
 
-          {/* Hero Content */}
-          <div className="relative z-10 flex h-full flex-col items-center justify-center text-center text-white">
-            <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 w-full">
-              <div className="max-w-screen-lg mx-auto">
-                <h1 
-                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-tight tracking-tight mb-4 sm:mb-6"
-                  style={{ textShadow: '0 2px 20px rgba(0,0,0,0.7)' }}
-                >
-                  Images That Cursed The World
-                </h1>
-                <p 
-                  className="text-base sm:text-lg md:text-xl lg:text-2xl font-light text-gray-200 mb-8 sm:mb-10 max-w-3xl mx-auto leading-relaxed"
-                  style={{ textShadow: '0 2px 15px rgba(0,0,0,0.6)' }}
-                >
-                  A curated journey through the most influential visual moments in History.
-                </p>
-                <button
-                  onClick={() => navigate('/gallery')}
-                  className="inline-block bg-[#A78BFA] text-white font-bold py-3 px-8 sm:py-4 sm:px-10 lg:py-5 lg:px-12 rounded-full text-base sm:text-lg lg:text-xl hover:bg-[#A78BFA]/90 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
-                >
-                  Explore the Gallery
-                </button>
-              </div>
+          <h1 className="rise font-display uppercase leading-[0.86] tracking-tight" style={{ animationDelay: "120ms" }}>
+            <span className="block text-[clamp(3.6rem,13vw,12rem)]">The world</span>
+            <span className="block text-[clamp(3.6rem,13vw,12rem)] text-blood">watched.</span>
+          </h1>
+
+          <div className="rise mt-8 grid gap-8 md:grid-cols-[1fr_auto] md:items-end" style={{ animationDelay: "260ms" }}>
+            <p className="max-w-xl font-typed text-lg leading-relaxed text-bone/90 sm:text-xl">
+              Then it <span className="line-through decoration-blood decoration-2">grieved</span> scrolled past. This
+              archive keeps the images the world saw for a moment and forgot. Every one of them is a witness, and{" "}
+              <Redacted>someone</Redacted> is still waiting for an answer.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Link to="/archive" className="btn btn-blood">
+                Open the archive <span aria-hidden="true">→</span>
+              </Link>
+              <Link to="/file" className="btn">
+                File an exhibit
+              </Link>
             </div>
           </div>
+
+          <p className="label mt-10 italic !normal-case !tracking-normal" aria-live="polite">
+            “{current.note}”
+          </p>
         </div>
-      </main>
 
-    </div>
+        {/* slide index */}
+        <div className="absolute right-4 top-24 z-10 flex flex-col gap-2 sm:right-8" aria-hidden="true">
+          {SLIDES.map((_, i) => (
+            <span key={i} className={`h-8 w-[3px] transition-colors ${i === slide ? "bg-blood" : "bg-bone/25"}`} />
+          ))}
+        </div>
+      </section>
+
+      <Ticker
+        tone="bone"
+        items={[
+          total === null ? "Exhibits on file" : `${total} exhibit${total === 1 ? "" : "s"} on file`,
+          "None forgotten",
+          "No case closed",
+          "Look closer",
+        ]}
+      />
+
+      {/* ---------- THE RULES ---------- */}
+      <section className="mx-auto max-w-[1600px] px-4 py-24 sm:px-8" aria-labelledby="rules">
+        <h2 id="rules" className="label mb-12">
+          Protocol for visitors
+        </h2>
+        <ol className="grid gap-px bg-ash md:grid-cols-3">
+          {[
+            ["Look.", "Do not look away. Each image is shown in grey until you choose to see it fully."],
+            ["Remember.", "A photograph is often the last witness. Read the testimony beside it."],
+            ["File.", "Add what the world tried to forget, with a source, so it can't be denied."],
+          ].map(([title, body], i) => (
+            <li key={title} className="bg-ink p-8 sm:p-10">
+              <span className="font-display text-7xl leading-none text-blood">{String(i + 1).padStart(2, "0")}</span>
+              <h3 className="mt-6 font-display text-4xl uppercase">{title}</h3>
+              <p className="mt-4 max-w-sm font-typed text-dim">{body}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      {/* ---------- LATEST ENTRIES ---------- */}
+      {recent.length > 0 && (
+        <section className="mx-auto max-w-[1600px] px-4 sm:px-8" aria-labelledby="latest">
+          <div className="mb-10 flex flex-wrap items-end justify-between gap-4 border-b border-ash pb-6">
+            <h2 id="latest" className="font-display text-5xl uppercase sm:text-7xl">
+              Latest <span className="text-blood">entries</span>
+            </h2>
+            <Link to="/archive" className="label !text-bone hover:!text-blood">
+              Full record →
+            </Link>
+          </div>
+          <div className="columns-1 gap-8 sm:columns-2 lg:columns-3">
+            {recent.map((e) => (
+              <ExhibitCard key={e.id} exhibit={e} />
+            ))}
+          </div>
+        </section>
+      )}
+    </Layout>
   );
-};
-
-export default Home;
+}
