@@ -5,7 +5,7 @@ import type { Exhibit, Page } from "./types";
  * (Docker build arg, Railway variable, or frontend/.env.local for dev).
  */
 export const API_BASE = (
-  import.meta.env.VITE_API_BASE_URL || "https://worldscars-backend-production.up.railway.app"
+  import.meta.env.VITE_API_BASE_URL || "https://worldscars-backend.onrender.com"
 ).replace(/\/+$/, "");
 
 export class ApiError extends Error {

@@ -5,6 +5,7 @@
 
 [build.environment]
   NODE_VERSION = "22"
+  VITE_API_BASE_URL = "https://worldscars-backend.onrender.com"
 
 # Single-page app: every path serves index.html
 [[redirects]]
