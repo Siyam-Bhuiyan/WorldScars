@@ -1,7 +1,8 @@
+# Local full stack: Postgres + backend + frontend.
+# Copy .env.example to .env and fill in the Cloudinary keys and ADMIN_TOKEN first.
 services:
   db:
-    image: postgres:15-alpine
-    container_name: worldscars-db
+    image: postgres:16-alpine
     environment:
       POSTGRES_DB: worldscars
       POSTGRES_USER: postgres
@@ -10,61 +11,48 @@ services:
       - "${DB_PORT:-5432}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    networks:
-      - worldscars-network
     restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    container_name: worldscars-backend
+    build: ./backend
     ports:
       - "${BACKEND_PORT:-8080}:8080"
     depends_on:
       db:
         condition: service_healthy
     environment:
-      - SPRING_PROFILES_ACTIVE=docker
-      - DATABASE_URL=${DATABASE_URL}
-      - DATABASE_USERNAME=${DATABASE_USERNAME:-postgres}
-      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
-      - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
-      - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
-      - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
-      - FRONTEND_URL=${FRONTEND_URL}
-    networks:
-      - worldscars-network
+      DATABASE_URL: jdbc:postgresql://db:5432/worldscars
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      CLOUDINARY_CLOUD_NAME: ${CLOUDINARY_CLOUD_NAME}
+      CLOUDINARY_API_KEY: ${CLOUDINARY_API_KEY}
+      CLOUDINARY_API_SECRET: ${CLOUDINARY_API_SECRET}
+      ADMIN_TOKEN: ${ADMIN_TOKEN}
+      FRONTEND_URL: http://localhost:${FRONTEND_PORT:-3000}
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/api/test"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+      test: ["CMD", "curl", "-fs", "http://localhost:8080/api/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
 
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile
-    container_name: worldscars-frontend
+      args:
+        VITE_API_BASE_URL: http://localhost:${BACKEND_PORT:-8080}
     ports:
       - "${FRONTEND_PORT:-3000}:80"
     depends_on:
-      - backend
-    environment:
-      - VITE_API_BASE_URL=${VITE_API_BASE_URL:-http://localhost:8080}
-    networks:
-      - worldscars-network
+      backend:
+        condition: service_healthy
     restart: unless-stopped
 
 volumes:
   postgres_data:
-
-networks:
-  worldscars-network:
-    driver: bridge

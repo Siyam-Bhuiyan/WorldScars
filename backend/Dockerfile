@@ -1,26 +1,17 @@
-# Use OpenJDK 17 as base image
-FROM openjdk:17-jdk-slim
-
-# Install curl and Maven for health checks and building
-RUN apt-get update && apt-get install -y curl maven && rm -rf /var/lib/apt/lists/*
-
-# Set working directory
+# ---- build ----
+FROM eclipse-temurin:17-jdk AS build
 WORKDIR /app
-
-# Copy pom.xml first (for better Docker layer caching)
-COPY pom.xml .
-
-# Download dependencies (this layer will be cached if pom.xml doesn't change)
-RUN mvn dependency:go-offline -B
-
-# Copy source code
+COPY .mvn .mvn
+COPY mvnw pom.xml ./
+RUN chmod +x mvnw && ./mvnw -B -q dependency:go-offline
 COPY src ./src
+RUN ./mvnw -B -q clean package -DskipTests && cp target/backend-*.jar app.jar
 
-# Build the application
-RUN mvn clean package -DskipTests
-
-# Expose port
+# ---- run ----
+FROM eclipse-temurin:17-jre
+RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+COPY --from=build /app/app.jar app.jar
 EXPOSE 8080
-
-# Run the application
-CMD ["java", "-jar", "target/backend-0.0.1-SNAPSHOT.jar"]
+HEALTHCHECK --interval=30s --timeout=5s --start-period=40s CMD curl -fs http://localhost:${PORT:-8080}/api/health || exit 1
+CMD ["java", "-jar", "app.jar"]

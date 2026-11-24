@@ -1,33 +1,19 @@
-# Root Dockerfile for Railway deployment
-# This builds the backend service that Railway can detect
+# Root Dockerfile used by Railway for the backend service (build context = repo root).
+# Mirrors backend/Dockerfile.
 
-FROM openjdk:17-jdk-slim
-
-# Install curl for health checks
-RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
-
-# Set working directory
+# ---- build ----
+FROM eclipse-temurin:17-jdk AS build
 WORKDIR /app
-
-# Copy Maven wrapper and pom.xml
-COPY backend/mvnw .
 COPY backend/.mvn .mvn
-COPY backend/pom.xml .
-
-# Make mvnw executable
-RUN chmod +x mvnw
-
-# Download dependencies (this layer will be cached if pom.xml doesn't change)
-RUN ./mvnw dependency:go-offline -B
-
-# Copy backend source code
+COPY backend/mvnw backend/pom.xml ./
+RUN chmod +x mvnw && ./mvnw -B -q dependency:go-offline
 COPY backend/src ./src
+RUN ./mvnw -B -q clean package -DskipTests && cp target/backend-*.jar app.jar
 
-# Build the application
-RUN ./mvnw clean package -DskipTests
-
-# Expose port
+# ---- run ----
+FROM eclipse-temurin:17-jre
+RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+COPY --from=build /app/app.jar app.jar
 EXPOSE 8080
-
-# Run the application
-CMD ["java", "-jar", "target/backend-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "app.jar"]

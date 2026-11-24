@@ -6,16 +6,21 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Cloudinary credentials come only from the environment
+ * (CLOUDINARY_CLOUD_NAME / CLOUDINARY_API_KEY / CLOUDINARY_API_SECRET).
+ * Never put real values in source code.
+ */
 @Configuration
 public class CloudinaryConfig {
 
-    @Value("${cloudinary.cloud_name:dcosuqvhu}")
+    @Value("${cloudinary.cloud_name}")
     private String cloudName;
 
-    @Value("${cloudinary.api_key:412147971345332}")
+    @Value("${cloudinary.api_key}")
     private String apiKey;
 
-    @Value("${cloudinary.api_secret:9nGTW7KOQ8gZSs8La11lToj8wJ0}")
+    @Value("${cloudinary.api_secret}")
     private String apiSecret;
 
     @Bean
@@ -23,7 +28,8 @@ public class CloudinaryConfig {
         return new Cloudinary(ObjectUtils.asMap(
                 "cloud_name", cloudName,
                 "api_key", apiKey,
-                "api_secret", apiSecret
+                "api_secret", apiSecret,
+                "secure", true
         ));
     }
 }
