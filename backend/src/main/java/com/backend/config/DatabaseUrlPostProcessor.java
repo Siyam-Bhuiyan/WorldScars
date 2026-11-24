@@ -32,7 +32,11 @@ public class DatabaseUrlPostProcessor implements EnvironmentPostProcessor {
         }
         URI uri = URI.create(url.replaceFirst("^postgres://", "postgresql://"));
         int port = uri.getPort() == -1 ? 5432 : uri.getPort();
-        String query = uri.getRawQuery() == null ? "" : "?" + uri.getRawQuery();
+        // channel_binding is a libpq option the JDBC driver doesn't understand; drop it.
+        String kept = uri.getRawQuery() == null ? "" : java.util.Arrays.stream(uri.getRawQuery().split("&"))
+                .filter(p -> !p.startsWith("channel_binding="))
+                .collect(java.util.stream.Collectors.joining("&"));
+        String query = kept.isEmpty() ? "" : "?" + kept;
         out.put("spring.datasource.url", "jdbc:postgresql://" + uri.getHost() + ":" + port + uri.getRawPath() + query);
         if (uri.getUserInfo() != null) {
             String[] parts = uri.getUserInfo().split(":", 2);

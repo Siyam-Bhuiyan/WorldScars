@@ -15,6 +15,12 @@ class DatabaseUrlPostProcessorTests {
     }
 
     @Test
+    void dropsChannelBinding() {
+        var m = DatabaseUrlPostProcessor.convert("postgresql://u:p@h-pooler.neon.tech/neondb?sslmode=require&channel_binding=require");
+        assertThat(m.get("spring.datasource.url")).isEqualTo("jdbc:postgresql://h-pooler.neon.tech:5432/neondb?sslmode=require");
+    }
+
+    @Test
     void leavesJdbcUrlsAlone() {
         assertThat(DatabaseUrlPostProcessor.convert("jdbc:postgresql://h:5432/d")).isEmpty();
         assertThat(DatabaseUrlPostProcessor.convert(null)).isEmpty();
