@@ -4,6 +4,7 @@ import Layout from "../components/Layout";
 import { fileExhibit } from "../lib/api";
 import { loadClearance, saveClearance } from "../lib/clearance";
 import { safeHref } from "../lib/format";
+import AccessRequest from "../components/AccessRequest";
 
 const MAX_BYTES = 10 * 1024 * 1024;
 const ACCEPT = ["image/jpeg", "image/png", "image/webp", "image/gif", "image/avif"];
@@ -215,6 +216,9 @@ export default function FileExhibit() {
               required
             />
             <p className="label mt-2">Remembered on this device after a successful filing.</p>
+            <div className="mt-6">
+              <AccessRequest />
+            </div>
           </div>
 
           {error && (
