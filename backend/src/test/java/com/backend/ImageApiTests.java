@@ -35,6 +35,12 @@ class ImageApiTests {
     }
 
     @Test
+    void unknownPathIs404NotServerError() throws Exception {
+        mvc.perform(get("/nope")).andExpect(status().isNotFound());
+        mvc.perform(get("/")).andExpect(status().isOk());
+    }
+
+    @Test
     void missingImageIs404() throws Exception {
         mvc.perform(get("/api/images/999999"))
                 .andExpect(status().isNotFound())

@@ -23,7 +23,7 @@ Total: about 15 minutes. Do the steps in order.
    |---|---|
    | `DATABASE_URL` | the Neon string from step 1 |
    | `CLOUDINARY_CLOUD_NAME` | from `backend/.env` |
-   | `CLOUDINARY_API_KEY` | from `backend/.env` |
+   | `c` | from `backend/.env` |
    | `CLOUDINARY_API_SECRET` | from `backend/.env` |
    | `ADMIN_TOKEN` | from `backend/.env` |
    | `FRONTEND_URL` | leave empty for now |
