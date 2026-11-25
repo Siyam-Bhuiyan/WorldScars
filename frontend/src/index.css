@@ -1,21 +1,24 @@
-@import url("https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Instrument+Serif:ital@0;1&family=Special+Elite&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* ------------------------------------------------------------------
-   WORLDSCARS — Brutal Archive
-   Black and bone-white, one blood-red accent, film grain, torn paper,
-   redaction bars and typewriter case files.
+   WORLDSCARS: Afterimage
+   The void, one living red, and a pulse. What you look at is lit;
+   what you look away from fades.
    ------------------------------------------------------------------ */
 
 @layer base {
   :root {
     color-scheme: dark;
+    --beat: 1.11s; /* 54 BPM, the resting heart of the site */
   }
 
   html {
     background: theme("colors.ink");
+    scrollbar-color: theme("colors.blood") theme("colors.ink");
+    scrollbar-width: thin;
   }
 
   body {
@@ -25,23 +28,44 @@
     color: theme("colors.bone");
     font-family: theme("fontFamily.mono");
     -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   ::selection {
-    background: theme("colors.blood");
-    color: theme("colors.bone");
+    background: theme("colors.ember");
+    color: theme("colors.ink");
   }
 
   :focus-visible {
-    outline: 2px solid theme("colors.blood");
+    outline: 2px solid theme("colors.ember");
     outline-offset: 3px;
   }
 
   input,
   textarea {
-    caret-color: theme("colors.blood");
+    caret-color: theme("colors.ember");
   }
+
+  /* custom cursor: hide the native one only where ours is drawn */
+  html.has-cursor,
+  html.has-cursor a,
+  html.has-cursor button,
+  html.has-cursor [role="button"],
+  html.has-cursor label {
+    cursor: none;
+  }
+}
+
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
 }
 
 @layer components {
@@ -52,12 +76,12 @@
     inset: -50%;
     pointer-events: none;
     z-index: 60;
-    opacity: 0.09;
+    opacity: 0.08;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     animation: grain 0.9s steps(4) infinite;
   }
 
-  /* Small uppercase label used everywhere: "EXHIBIT 014", "LOC:" */
+  /* Small uppercase label used everywhere. */
   .label {
     font-family: theme("fontFamily.mono");
     font-size: 0.68rem;
@@ -65,6 +89,27 @@
     letter-spacing: theme("letterSpacing.file");
     text-transform: uppercase;
     color: theme("colors.dim");
+  }
+
+  /* Red light. */
+  .glow {
+    text-shadow: 0 0 18px rgba(255, 53, 39, 0.55), 0 0 60px rgba(192, 22, 15, 0.45);
+  }
+  .glow-box {
+    box-shadow: 0 0 24px rgba(255, 53, 39, 0.45), 0 0 80px rgba(192, 22, 15, 0.25);
+  }
+
+  /* Hollow letters, used before a word is "filled in" by scroll. */
+  .hollow {
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(236, 230, 216, 0.35);
+  }
+
+  /* The torch: an element is visible only inside a soft circle of light. */
+  .torch {
+    --r: clamp(210px, 26vw, 380px);
+    -webkit-mask-image: radial-gradient(circle var(--r) at var(--x, 50%) var(--y, 45%), #000 0%, rgba(0, 0, 0, 0.9) 30%, rgba(0, 0, 0, 0.35) 62%, transparent 100%);
+    mask-image: radial-gradient(circle var(--r) at var(--x, 50%) var(--y, 45%), #000 0%, rgba(0, 0, 0, 0.9) 30%, rgba(0, 0, 0, 0.35) 62%, transparent 100%);
   }
 
   /* Torn bottom edge on paper-like cards. */
@@ -97,36 +142,25 @@
     color: theme("colors.blood");
   }
 
-  /* Exhibit photos are shown unfiltered; only a slow, gentle zoom on hover. */
-  .exhibit-img {
-    transition: transform 1.2s cubic-bezier(0.2, 0.7, 0.2, 1);
-  }
-  .group:hover .exhibit-img,
-  .group:focus-visible .exhibit-img {
-    transform: scale(1.015);
-  }
-
   /* Thin red rule with a "cut" in it. */
   .scar-rule {
     height: 2px;
-    background: linear-gradient(90deg, theme("colors.blood") 0 62%, transparent 62% 64%, theme("colors.blood") 64% 100%);
+    background: linear-gradient(90deg, theme("colors.ember") 0 62%, transparent 62% 64%, theme("colors.ember") 64% 100%);
   }
 
-  /* Stamped text: "UNRESOLVED", "ON FILE". */
+  /* Stamped text. */
   .stamp {
     display: inline-block;
-    border: 3px double theme("colors.blood");
-    color: theme("colors.blood");
+    border: 3px double theme("colors.ember");
+    color: theme("colors.ember");
     font-family: theme("fontFamily.display");
     letter-spacing: 0.12em;
     text-transform: uppercase;
     padding: 0.15em 0.6em;
-    transform: rotate(-6deg);
-    opacity: 0.88;
-    mix-blend-mode: screen;
+    opacity: 0.9;
   }
 
-  /* Underlined intake-form fields. */
+  /* Underlined form fields. */
   .field {
     width: 100%;
     background: transparent;
@@ -137,7 +171,7 @@
     font-family: theme("fontFamily.typed");
     font-size: 1.05rem;
     border-radius: 0;
-    transition: border-color 0.2s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
   }
   .field::placeholder {
     color: theme("colors.smoke");
@@ -147,39 +181,54 @@
   }
   .field:focus {
     outline: none;
-    border-color: theme("colors.blood");
+    border-color: theme("colors.ember");
+    box-shadow: 0 1px 0 0 theme("colors.ember"), 0 12px 24px -18px rgba(255, 53, 39, 0.6);
   }
 
-  /* Primary/secondary buttons: hard edges, no rounding. */
+  /* Buttons: hard edges, a fill that rises from below on hover. */
   .btn {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.75rem;
-    padding: 0.95rem 1.6rem;
+    padding: 1rem 1.7rem;
     font-family: theme("fontFamily.mono");
-    font-size: 0.78rem;
+    font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: theme("letterSpacing.file");
     text-transform: uppercase;
-    border: 1px solid theme("colors.bone");
+    border: 1px solid rgba(236, 230, 216, 0.5);
     color: theme("colors.bone");
     background: transparent;
-    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    transition: color 0.45s cubic-bezier(0.2, 0.7, 0.1, 1), border-color 0.45s ease;
+  }
+  .btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: theme("colors.bone");
+    transform: translateY(101%);
+    transition: transform 0.55s cubic-bezier(0.2, 0.7, 0.1, 1);
   }
   .btn:hover:not(:disabled) {
-    background: theme("colors.bone");
     color: theme("colors.ink");
+    border-color: theme("colors.bone");
+  }
+  .btn:hover:not(:disabled)::before {
+    transform: translateY(0);
   }
   .btn-blood {
-    background: theme("colors.blood");
-    border-color: theme("colors.blood");
-    color: theme("colors.bone");
+    background: theme("colors.ember");
+    border-color: theme("colors.ember");
+    color: theme("colors.ink");
+    box-shadow: 0 0 30px -6px rgba(255, 53, 39, 0.7);
   }
-  .btn-blood:hover:not(:disabled) {
+  .btn-blood::before {
     background: theme("colors.bone");
-    border-color: theme("colors.bone");
-    color: theme("colors.blood");
   }
   .btn:disabled {
     opacity: 0.35;
@@ -193,16 +242,48 @@
     animation: ticker 60s linear infinite;
   }
 
-  /* Image flickers like a failing projector when slides change. */
-  .flicker {
-    animation: flicker 0.9s steps(1) 1;
-  }
-
   /* Blinking typewriter cursor. */
   .cursor::after {
     content: "_";
-    color: theme("colors.blood");
+    color: theme("colors.ember");
     animation: blink 1.1s steps(1) infinite;
+  }
+
+  /* Heartbeat: anything that should pulse with the site. */
+  .beat {
+    animation: beat var(--beat) ease-out infinite;
+  }
+
+  /* ECG trace: a bright segment running along a faint line. */
+  .ecg-run {
+    stroke-dasharray: 140 860;
+    animation: ecg 2.6s linear infinite;
+  }
+
+  /* Nav link that rolls up to a red copy of itself. */
+  .roll {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+  }
+  .roll > span {
+    display: block;
+    transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.1, 1);
+  }
+  .roll > span + span {
+    position: absolute;
+    inset: 0;
+    transform: translateY(100%);
+    color: theme("colors.ember");
+  }
+  .roll:hover > span:first-child,
+  .roll:focus-visible > span:first-child {
+    transform: translateY(-100%);
+  }
+  .roll:hover > span + span,
+  .roll:focus-visible > span + span {
+    transform: translateY(0);
   }
 }
 
@@ -219,37 +300,40 @@
   to { transform: translateX(-50%); }
 }
 
-@keyframes flicker {
-  0% { opacity: 0.2; }
-  10% { opacity: 0.9; }
-  20% { opacity: 0.35; }
-  32% { opacity: 1; }
-  45% { opacity: 0.6; }
-  60%, 100% { opacity: 1; }
-}
-
 @keyframes blink {
   50% { opacity: 0; }
 }
 
-@keyframes rise {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes beat {
+  0%, 100% { transform: scale(1); }
+  8% { transform: scale(1.35); }
+  18% { transform: scale(1); }
+  28% { transform: scale(1.18); }
+  42% { transform: scale(1); }
 }
 
-.rise {
-  animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+@keyframes ecg {
+  from { stroke-dashoffset: 1000; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes drip {
+  0% { transform: scaleY(0); transform-origin: top; }
+  45% { transform: scaleY(1); transform-origin: top; }
+  55% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+.drip {
+  animation: drip 2.4s cubic-bezier(0.76, 0, 0.24, 1) infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .grain::after,
   .ticker,
-  .flicker,
-  .rise,
-  .cursor::after {
+  .cursor::after,
+  .beat,
+  .ecg-run,
+  .drip {
     animation: none !important;
-  }
-  .exhibit-img {
-    transition: none;
   }
 }

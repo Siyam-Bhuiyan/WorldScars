@@ -64,7 +64,7 @@ export default function AccessRequest() {
 
       <div>
         <label htmlFor="ar-email" className="label block">
-          Your email <span className="text-blood">*</span>
+          Your email <span className="text-ember">*</span>
         </label>
         <input id="ar-email" type="email" required className="field" value={email} onChange={(e) => setEmail(e.target.value)} maxLength={200} />
       </div>
@@ -76,13 +76,13 @@ export default function AccessRequest() {
       </div>
       <div>
         <label htmlFor="ar-msg" className="label block">
-          What would you like to file? <span className="text-blood">*</span>
+          What would you like to file? <span className="text-ember">*</span>
         </label>
         <textarea id="ar-msg" required className="field min-h-[90px] resize-y" value={message} onChange={(e) => setMessage(e.target.value)} maxLength={1000} />
       </div>
 
       {state === "error" && (
-        <p className="font-typed text-sm text-blood" role="alert">
+        <p className="font-typed text-sm text-ember" role="alert">
           The request could not be sent. Try again in a moment.
         </p>
       )}

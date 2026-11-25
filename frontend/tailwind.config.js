@@ -4,17 +4,19 @@ export default {
   theme: {
     extend: {
       colors: {
-        ink: "#0a0a09", // page black
-        char: "#141412", // raised surfaces
-        ash: "#2b2a26", // rules, borders
-        smoke: "#57544c", // muted borders / disabled
+        ink: "#070706", // the void
+        char: "#121110", // raised surfaces
+        ash: "#262420", // rules, borders
+        smoke: "#55524a", // muted borders / disabled
         dim: "#9c978a", // secondary text
-        bone: "#e8e3d6", // primary text, paper
-        blood: "#c0160f", // the one accent
-        rust: "#5e0b07", // dried blood, deep accent
+        bone: "#ece6d8", // primary text, paper
+        blood: "#c0160f", // dried accent
+        ember: "#ff3527", // living accent: light, pulse, glow
+        rust: "#4a0905", // deep accent
       },
       fontFamily: {
-        display: ['Anton', 'Impact', '"Arial Narrow"', "sans-serif"],
+        display: ["Anton", "Impact", '"Arial Narrow"', "sans-serif"],
+        serif: ['"Instrument Serif"', "Georgia", '"Times New Roman"', "serif"],
         mono: ['"IBM Plex Mono"', "ui-monospace", "Consolas", "monospace"],
         typed: ['"Special Elite"', '"Courier New"', "Courier", "monospace"],
       },
