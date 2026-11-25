@@ -9,7 +9,7 @@ export default function Curtain() {
   return (
     <div className="pointer-events-none fixed inset-0 z-[120]" aria-hidden="true">
       <motion.div
-        className="absolute inset-0 origin-top bg-ember"
+        className="absolute inset-0 origin-top bg-blood"
         initial={{ scaleY: 1 }}
         animate={{ scaleY: 0 }}
         transition={{ duration: 0.75, ease: EASE_IO, delay: 0.12 }}

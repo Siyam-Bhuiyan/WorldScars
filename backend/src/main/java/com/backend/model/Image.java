@@ -20,7 +20,7 @@ public class Image {
     @Column(length = 500, nullable = false)
     private String title;
 
-    @Column(length = 2000)
+    @Column(length = 10000)
     private String description;
 
     @Column(name = "image_url", length = 1000, nullable = false)

@@ -77,7 +77,7 @@ public class ImageController {
             throw new BadRequestException("Title is required");
         }
         maxLength("Title", title, 500);
-        maxLength("Description", description, 2000);
+        maxLength("Description", description, 10000);
         maxLength("Location", location, 300);
         maxLength("Source", source, 1000);
 
