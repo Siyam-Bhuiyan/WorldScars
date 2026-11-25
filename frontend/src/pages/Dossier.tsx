@@ -1,6 +1,7 @@
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Layout from "../components/Layout";
+import Redacted from "../components/Redacted";
 import { Failure, Retrieving } from "../components/Status";
 import { ApiError, expungeExhibit, getExhibit } from "../lib/api";
 import { loadClearance, saveClearance } from "../lib/clearance";
@@ -74,81 +75,93 @@ export default function Dossier() {
 
   return (
     <Layout>
-      <article className="pb-6 pt-8 sm:pt-10">
+      <article className="mx-auto max-w-[1600px] px-4 pt-10 sm:px-8 sm:pt-14">
         {/* breadcrumb */}
-        <nav className="label mx-auto mb-5 max-w-[1500px] px-4 sm:px-8" aria-label="Breadcrumb">
+        <nav className="label mb-8" aria-label="Breadcrumb">
           <Link to="/archive" className="hover:!text-bone">
             Archive
           </Link>
           <span className="mx-3 text-smoke">/</span>
-          <span className="!text-bone">#{exhibitNo(exhibit.id)}</span>
+          <span className="!text-bone">Exhibit {exhibitNo(exhibit.id)}</span>
         </nav>
 
-        {/* ---------- THE IMAGE: as large as the screen allows ---------- */}
-        <figure className="mx-auto max-w-[1500px] px-0 sm:px-8">
-          <button
-            type="button"
-            onClick={() => setLightbox(true)}
-            className="group relative block w-full cursor-zoom-in bg-char focus:outline-none"
-            aria-label="View the image full screen"
-          >
-            <img
-              src={sized(exhibit.imageUrl, 2000)}
-              alt={exhibit.title}
-              className="mx-auto block max-h-[88vh] w-auto max-w-full"
-            />
-            <span className="label absolute bottom-3 right-3 bg-ink/80 px-3 py-2 !text-bone opacity-80 transition-opacity group-hover:opacity-100">
-              Tap to enlarge
-            </span>
-          </button>
-        </figure>
-
-        {/* ---------- THE STORY: a narrow, comfortable reading column ---------- */}
-        <div className="mx-auto mt-12 max-w-[42rem] px-5 sm:mt-16 sm:px-8">
-          <h1 className="font-display text-[clamp(2.2rem,5.5vw,3.8rem)] uppercase leading-[1.02] tracking-wide">
+        <header className="relative border-b border-ash pb-8">
+          <p className="label !text-blood">Exhibit {exhibitNo(exhibit.id)}</p>
+          <h1 className="mt-3 max-w-5xl font-display text-[clamp(2.6rem,7vw,6.5rem)] uppercase leading-[0.9]">
             {exhibit.title}
           </h1>
+          <span className="stamp absolute right-0 top-0 hidden text-2xl md:inline-block">Not forgotten</span>
+        </header>
 
-          <p className="label mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 !normal-case !tracking-wider">
-            {exhibit.location && <span className="!text-bone">{exhibit.location}</span>}
-            {exhibit.location && <span className="text-smoke">·</span>}
-            <span>{fileDate(exhibit.uploadedAt)}</span>
-            {source && (
-              <>
-                <span className="text-smoke">·</span>
-                <a
-                  href={source}
-                  target="_blank"
-                  rel="noopener noreferrer nofollow"
-                  className="underline decoration-blood decoration-2 underline-offset-4 hover:!text-blood"
-                >
-                  Source: {hostOf(source)} ↗
-                </a>
-              </>
-            )}
-          </p>
-
-          <div className="scar-rule mt-8 w-24" aria-hidden="true" />
-
-          {exhibit.description ? (
-            <div className="mt-8 space-y-6 font-read text-[1.2rem] leading-[1.85] text-bone/90 sm:text-[1.3rem]">
-              {exhibit.description.split(/\n{2,}/).map((para, i) => (
-                <p key={i} className="whitespace-pre-line">
-                  {para}
-                </p>
-              ))}
+        <div className="mt-10 grid gap-12 lg:grid-cols-[minmax(0,1.6fr)_minmax(300px,1fr)]">
+          {/* ---------- THE IMAGE ---------- */}
+          <figure>
+            <div className="relative overflow-hidden bg-char">
+              <img
+                src={sized(exhibit.imageUrl, 1800)}
+                alt={exhibit.title}
+                className="mx-auto block max-h-[78vh] w-auto max-w-full"
+              />
+              <button
+                type="button"
+                onClick={() => setLightbox(true)}
+                className="label absolute bottom-3 right-3 bg-ink/80 px-3 py-2 !text-bone hover:!text-blood"
+              >
+                [ Full view ]
+              </button>
             </div>
-          ) : (
-            <p className="mt-8 font-read text-[1.2rem] italic leading-[1.85] text-dim">No words were left with this one.</p>
-          )}
+            <figcaption className="label mt-3 flex justify-between">
+              <span>Fig. {exhibitNo(exhibit.id)}</span>
+              <span>{exhibit.location || "Location withheld"}</span>
+            </figcaption>
+          </figure>
 
-          <div className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-ash pt-6">
-            <Link to="/archive" className="label !text-bone hover:!text-blood">
-              ← Back to the archive
-            </Link>
-          </div>
+          {/* ---------- THE CASE FILE ---------- */}
+          <aside className="lg:sticky lg:top-24 lg:self-start">
+            <div className="torn bg-bone px-6 pb-10 pt-6 text-ink sm:px-8">
+              <div className="flex items-center justify-between border-b-2 border-ink pb-3">
+                <p className="font-display text-2xl uppercase">Case file</p>
+                <p className="font-mono text-[0.68rem] font-semibold uppercase tracking-file">WS-{exhibitNo(exhibit.id)}</p>
+              </div>
 
-          <Expunge exhibit={exhibit} onDone={() => navigate("/archive", { replace: true })} />
+              <dl className="mt-4 divide-y divide-ink/15 font-mono text-sm">
+                <Row term="Location">
+                  {exhibit.location ? exhibit.location : <Redacted dark>Withheld</Redacted>}
+                </Row>
+                <Row term="Filed">{fileDate(exhibit.uploadedAt)}</Row>
+                <Row term="Source">
+                  {source ? (
+                    <a
+                      href={source}
+                      target="_blank"
+                      rel="noopener noreferrer nofollow"
+                      className="break-all underline decoration-blood decoration-2 underline-offset-4 hover:text-blood"
+                    >
+                      {hostOf(source)} ↗
+                    </a>
+                  ) : (
+                    <Redacted dark>Unverified</Redacted>
+                  )}
+                </Row>
+                <Row term="Status">
+                  <span className="font-semibold text-blood">Open file · not forgotten</span>
+                </Row>
+              </dl>
+
+              <div className="mt-8">
+                <p className="font-mono text-[0.68rem] font-semibold uppercase tracking-file text-ink/60">Testimony</p>
+                {exhibit.description ? (
+                  <p className="mt-3 whitespace-pre-line font-typed text-[1.05rem] leading-relaxed">{exhibit.description}</p>
+                ) : (
+                  <p className="mt-3 font-typed text-[1.05rem] leading-relaxed text-ink/60">
+                    No testimony was recorded. <Redacted dark>The silence is part of the record.</Redacted>
+                  </p>
+                )}
+              </div>
+            </div>
+
+            <Expunge exhibit={exhibit} onDone={() => navigate("/archive", { replace: true })} />
+          </aside>
         </div>
       </article>
 
@@ -167,6 +180,15 @@ export default function Dossier() {
         </div>
       )}
     </Layout>
+  );
+}
+
+function Row({ term, children }: { term: string; children: ReactNode }) {
+  return (
+    <div className="grid grid-cols-[6.5rem_1fr] gap-3 py-3">
+      <dt className="text-[0.68rem] font-semibold uppercase tracking-file text-ink/60">{term}</dt>
+      <dd>{children}</dd>
+    </div>
   );
 }
 

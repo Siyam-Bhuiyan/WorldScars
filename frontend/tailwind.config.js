@@ -16,7 +16,6 @@ export default {
       fontFamily: {
         display: ['Anton', 'Impact', '"Arial Narrow"', "sans-serif"],
         mono: ['"IBM Plex Mono"', "ui-monospace", "Consolas", "monospace"],
-        read: ['"Newsreader"', "Georgia", '"Times New Roman"', "serif"],
         typed: ['"Special Elite"', '"Courier New"', "Courier", "monospace"],
       },
       letterSpacing: {
