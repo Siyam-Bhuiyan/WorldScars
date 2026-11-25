@@ -36,7 +36,7 @@ The interface is designed as a raw evidence archive: black and bone-white, one b
 | -------------- | ---- |
 | `/`            | Hero ("The world watched."), visitor protocol, latest entries |
 | `/archive`     | Searchable, paginated archive of exhibits |
-| `/exhibit/:id` | Dossier: veiled image, case file, testimony, expunge control |
+| `/exhibit/:id` | Dossier: image, case file, testimony, expunge control |
 | `/file`        | Exhibit intake form (needs the clearance key) |
 
 Old links (`/gallery`, `/upload`, `/image/:id`) redirect to the new routes.
