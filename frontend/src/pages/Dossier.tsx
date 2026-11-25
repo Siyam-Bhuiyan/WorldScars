@@ -16,7 +16,6 @@ export default function Dossier() {
 
   const [exhibit, setExhibit] = useState<Exhibit | null>(null);
   const [error, setError] = useState<{ message: string; status: number } | null>(null);
-  const [revealed, setRevealed] = useState(false);
   const [lightbox, setLightbox] = useState(false);
 
   useEffect(() => {
@@ -24,7 +23,6 @@ export default function Dossier() {
     let alive = true;
     setExhibit(null);
     setError(null);
-    setRevealed(false);
     getExhibit(id)
       .then((e) => alive && setExhibit(e))
       .catch((e) => alive && setError({ message: e.message, status: e instanceof ApiError ? e.status : 0 }));
@@ -102,29 +100,15 @@ export default function Dossier() {
               <img
                 src={sized(exhibit.imageUrl, 1800)}
                 alt={exhibit.title}
-                className="mx-auto block max-h-[78vh] w-auto max-w-full transition-[filter] duration-[2000ms] ease-out"
-                style={{ filter: revealed ? "none" : "grayscale(1) blur(22px) brightness(0.45)" }}
+                className="mx-auto block max-h-[78vh] w-auto max-w-full"
               />
-
-              {!revealed ? (
-                <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
-                  <p className="label !text-blood">Sensitive material</p>
-                  <p className="mt-4 max-w-md font-typed text-lg text-bone sm:text-xl">
-                    What follows is real. It happened to someone.
-                  </p>
-                  <button type="button" className="btn btn-blood mt-8" onClick={() => setRevealed(true)}>
-                    Look anyway
-                  </button>
-                </div>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => setLightbox(true)}
-                  className="label absolute bottom-3 right-3 bg-ink/80 px-3 py-2 !text-bone hover:!text-blood"
-                >
-                  [ Full view ]
-                </button>
-              )}
+              <button
+                type="button"
+                onClick={() => setLightbox(true)}
+                className="label absolute bottom-3 right-3 bg-ink/80 px-3 py-2 !text-bone hover:!text-blood"
+              >
+                [ Full view ]
+              </button>
             </div>
             <figcaption className="label mt-3 flex justify-between">
               <span>Fig. {exhibitNo(exhibit.id)}</span>

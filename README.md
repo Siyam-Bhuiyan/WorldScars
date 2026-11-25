@@ -19,7 +19,7 @@
 
 WorldScars is an archive of the images the world saw for a moment and forgot: earthquakes, wars, camps, the people inside them. Every image is filed as an *exhibit* with a location, a source and a testimony, so it can't be quietly lost.
 
-The interface is designed as a raw evidence archive: black and bone-white, one blood-red accent, film grain, torn case files and redaction bars. Images in the archive stay grey until you look closer. On an exhibit page the photo is veiled until you choose to **look anyway**.
+The interface is designed as a raw evidence archive: black and bone-white, one blood-red accent, film grain, torn case files and redaction bars.
 
 ## Stack
 
